@@ -105,15 +105,16 @@ $( document ).ready(function() {
           removeEntity(data.details.id);
         }
 
-        if (data.event == "UpdateText"){
+        // if (data.event == "UpdateText")
+        else{
           // Print debugging
           console.log("Inside the onmessage() function");
           
           const notification = document.getElementById('notification-bar');
 
           // FIXME: Need to replace this with the proper way of getting data from entities
-          console.log(data.details);
-          notification.textContent = data.details;
+          console.log(data.event)
+          notification.textContent = data.event;
         }
       }
     }
@@ -372,13 +373,13 @@ function updateText(){
   api.onmessage
 }
 
-function updateNotify()
-{
-const notification = document.getElementById('notification-bar');
-notification.textContent = updateText();
-}
+// function updateNotify()
+// {
+// const notification = document.getElementById('notification-bar');
+// notification.textContent = updateText();
+// }
 
-setInterval(updateNotify,1000)
+setInterval(updateText,1000)
 
 ////////////////////////////////////////////
 
