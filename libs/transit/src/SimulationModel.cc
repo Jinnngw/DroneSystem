@@ -121,7 +121,15 @@ void SimulationModel::removeFromSim(int id) {
   }
 }
 
-bool SimulationModel::sendNotif(std::string msg){
-  controller.sendFrontEndNotif(msg);
-  return true;
+// FIXME: need to figure out how to match method signature from UML
+  // sendEventToView() in transit_service.cc can't take std::string for details,
+  // so stuck with trying to output a JsonObject
+  // observer notification process should go like this:
+    // IPublisher calls sendNotif() in SimulationModel
+    // sendNotif() is called by sendEventToView() in transit_service.cc
+    // onmessage() in main.js outputs info
+IEntity* SimulationModel::sendNotif(std::string msg){
+  // Print debugging
+  std::cout << "In sendNotif()\n";
+  return this->entities[0];
 }

@@ -57,6 +57,14 @@ public:
             std::cout << "Stop command administered\n";
             model.stop();
         }
+        else if (cmd == "updateText")
+        {
+            // Print debugging
+            std::cout << "In transit_service.cc\n";
+
+            // model.sendNotif("test");
+            sendEventToView("UpdateText", model.sendNotif("")->getDetails());
+        }
     }
 
     void sendEntity(const std::string& event, const IEntity& entity, bool includeDetails = true) {
@@ -104,7 +112,6 @@ public:
 
     bool isAlive(){ return true; }
 
-    void sendFrontEndNotif(std::string msg){};
 
 private:
     // Simulation Model
@@ -151,9 +158,6 @@ public:
     void stop() { alive_ = false; }
     bool isAlive() { return alive_; }
 
-    void sendFrontEndNotif(std::string msg){
-        
-    }
 
 protected:
 	Session* createSession() { return new TransitService(model); }

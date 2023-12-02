@@ -104,6 +104,17 @@ $( document ).ready(function() {
           //console.log(data);
           removeEntity(data.details.id);
         }
+
+        if (data.event == "UpdateText"){
+          // Print debugging
+          console.log("Inside the onmessage() function");
+          
+          const notification = document.getElementById('notification-bar');
+
+          // FIXME: Need to replace this with the proper way of getting data from entities
+          console.log(data.details);
+          notification.textContent = data.details;
+        }
       }
     }
   }
@@ -349,6 +360,27 @@ function stopSimulation()
 {
   api.sendCommand("stopSimulation",{test:"test"});
 }
+
+////////////////////////////////////////////
+
+function updateText(){
+  // Print debugging
+  console.log("In updateText()");
+
+  api.sendCommand("updateText",{test:"test"});
+  
+  api.onmessage
+}
+
+function updateNotify()
+{
+const notification = document.getElementById('notification-bar');
+notification.textContent = updateText();
+}
+
+setInterval(updateNotify,1000)
+
+////////////////////////////////////////////
 
 function toggleRoutes() {
   showRoutes = !showRoutes;
