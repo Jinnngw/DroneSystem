@@ -104,6 +104,8 @@ public:
 
     bool isAlive(){ return true; }
 
+    void sendFrontEndNotif(std::string msg){};
+
 private:
     // Simulation Model
     SimulationModel& model;
@@ -148,6 +150,10 @@ public:
 
     void stop() { alive_ = false; }
     bool isAlive() { return alive_; }
+
+    void sendFrontEndNotif(std::string msg){
+        
+    }
 
 protected:
 	Session* createSession() { return new TransitService(model); }

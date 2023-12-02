@@ -55,6 +55,8 @@ class IController {
    * @return bool
    **/
   virtual bool isAlive(void) = 0;
+
+  virtual void sendFrontEndNotif(std::string msg) = 0;
 };
 
 #endif

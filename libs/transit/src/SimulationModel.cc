@@ -120,3 +120,8 @@ void SimulationModel::removeFromSim(int id) {
     delete entity;
   }
 }
+
+bool SimulationModel::sendNotif(std::string msg){
+  controller.sendFrontEndNotif(msg);
+  return true;
+}
