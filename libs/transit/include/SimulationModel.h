@@ -78,7 +78,7 @@ class SimulationModel : public IObserver{
   */
   const routing::IGraph* getGraph();
 
-  IEntity* sendNotif(std::string msg);
+  void sendNotif(IEntity* context);
 
   std::deque<Package*> scheduledDeliveries;
 

@@ -121,15 +121,16 @@ void SimulationModel::removeFromSim(int id) {
   }
 }
 
-// FIXME: need to figure out how to match method signature from UML
-  // sendEventToView() in transit_service.cc can't take std::string for details,
-  // so stuck with trying to output a JsonObject
-  // observer notification process should go like this:
-    // IPublisher calls sendNotif() in SimulationModel
-    // sendNotif() is called by sendEventToView() in transit_service.cc
-    // onmessage() in main.js outputs info
-IEntity* SimulationModel::sendNotif(std::string msg){
-  // Print debugging
-  std::cout << "In sendNotif()\n";
-  return this->entities[0];
+// Backend to frontend process:
+  // Concrete publisher of type IEntity calls SimulationModel's sendNotif()
+  // (EUREKA): SimulationModel can use sendEventToView() from transit_service.cc because of its controller member variable
+  // sendEventToView() will send a command along with entity details to main.js's onmessagge() function
+  // onmessage() will format and display details as text in notification bar
+void SimulationModel::sendNotif(IEntity* context){
+  // // Print debugging
+  // std::cout << "In sendNotif()\n";
+  // std::cout << "There are " << this->entities.size() << " entities in the model\n";
+  // std::cout << "The newest entity is a " << this->entities[entities.size()-1]->getName() << std::endl;
+  
+  this->controller.sendEventToView("UpdateText", context->getDetails());
 }

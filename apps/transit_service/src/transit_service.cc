@@ -57,14 +57,6 @@ public:
             std::cout << "Stop command administered\n";
             model.stop();
         }
-        else if (cmd == "updateText")
-        {
-            // Print debugging
-            std::cout << "In transit_service.cc\n";
-
-            // model.sendNotif("test");
-            sendEventToView("UpdateText", model.sendNotif("")->getDetails());
-        }
     }
 
     void sendEntity(const std::string& event, const IEntity& entity, bool includeDetails = true) {

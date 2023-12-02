@@ -105,16 +105,23 @@ $( document ).ready(function() {
           removeEntity(data.details.id);
         }
 
-        // if (data.event == "UpdateText")
-        else{
+        if (data.event == "UpdateText"){
+        // else{
           // Print debugging
           console.log("Inside the onmessage() function");
-          
-          const notification = document.getElementById('notification-bar');
+          console.log(data.details)
 
-          // FIXME: Need to replace this with the proper way of getting data from entities
-          console.log(data.event)
-          notification.textContent = data.event;
+          const notificationText = data.details.name 
+                                   + " with ID " + data.details.id
+                                   + " is at (" + data.details.position[0] + ", " + data.details.position[1] + ", " + data.details.position[2] + ")"
+                                   + " and is at a speed of " + data.details.speed
+                                   + "\n";
+
+          const notificationBar = document.getElementById('notification-bar');
+          
+          if(!notificationBar.textContent.includes(notificationText)){
+            notificationBar.textContent = notificationBar.textContent + notificationText;
+          }
         }
       }
     }
@@ -361,27 +368,6 @@ function stopSimulation()
 {
   api.sendCommand("stopSimulation",{test:"test"});
 }
-
-////////////////////////////////////////////
-
-function updateText(){
-  // Print debugging
-  console.log("In updateText()");
-
-  api.sendCommand("updateText",{test:"test"});
-  
-  api.onmessage
-}
-
-// function updateNotify()
-// {
-// const notification = document.getElementById('notification-bar');
-// notification.textContent = updateText();
-// }
-
-setInterval(updateText,1000)
-
-////////////////////////////////////////////
 
 function toggleRoutes() {
   showRoutes = !showRoutes;
