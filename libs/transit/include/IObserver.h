@@ -11,7 +11,7 @@ class IObserver {
  public:
   // Notify function is called by the publisher to notify SimulationModel, the
   // concrete observer
-  virtual void sendNotif(IEntity* context) = 0;
+  virtual void sendNotif(IEntity* context, std::string moreContext) = 0;
 };
 
 #endif

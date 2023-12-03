@@ -40,6 +40,10 @@ class Robot : public IEntity {
 
   bool requestedDelivery = true;
 
+  void subscribe(IObserver* observer);
+  void unsubscribe(IObserver* observer);
+  bool notifySubscribers(std::string context);
+
  protected:
   Package* package = nullptr;
 };

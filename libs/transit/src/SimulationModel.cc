@@ -35,6 +35,9 @@ IEntity* SimulationModel::createEntity(JsonObject& entity) {
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);
     entities[myNewEntity->getId()] = myNewEntity;
+
+    // Subscribe the model to the new entity
+    myNewEntity->subscribe(this);
   }
 
   return myNewEntity;
@@ -122,14 +125,14 @@ void SimulationModel::removeFromSim(int id) {
 // Concrete publisher of type IEntity calls SimulationModel's sendNotif()
 // (EUREKA): SimulationModel can use sendEventToView() from transit_service.cc
 // because of its controller member variable sendEventToView() will send a
-// command along with entity details to main.js's onmessagge() function
+// command along with entity details to main.js's onmessage() function
 // onmessage() will format and display details as text in notification bar
-void SimulationModel::sendNotif(IEntity* context) {
+void SimulationModel::sendNotif(IEntity* context, std::string moreContext) {
   // // Print debugging
   // std::cout << "In sendNotif()\n";
   // std::cout << "There are " << this->entities.size() << " entities in the
   // model\n"; std::cout << "The newest entity is a " <<
   // this->entities[entities.size()-1]->getName() << std::endl;
 
-  this->controller.sendEventToView("UpdateText", context->getDetails());
+  this->controller.sendEventToView(moreContext, context->getDetails());
 }

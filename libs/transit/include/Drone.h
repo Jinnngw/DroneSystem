@@ -54,6 +54,10 @@ class Drone : public IEntity {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  void subscribe(IObserver* observer);
+  void unsubscribe(IObserver* observer);
+  bool notifySubscribers(std::string context);
+
  private:
   bool available = false;
   bool pickedUp = false;

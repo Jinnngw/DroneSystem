@@ -109,3 +109,9 @@ void Drone::update(double dt) {
     }
   }
 }
+
+void Drone::subscribe(IObserver* observer) {}
+
+void Drone::unsubscribe(IObserver* observer) {}
+
+bool Drone::notifySubscribers(std::string context) { return true;}

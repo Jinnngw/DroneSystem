@@ -2,7 +2,6 @@
 #define PUBLISHER_H_
 
 #include <vector>
-
 #include "IObserver.h"
 
 /**
@@ -12,8 +11,8 @@
  */
 class IPublisher {
  public:
-  IPublisher();
-  ~IPublisher();
+  IPublisher(){};
+  ~IPublisher(){};
 
   /**
    * @brief Subscribes an observer to this entity.
@@ -31,9 +30,9 @@ class IPublisher {
    * @brief Notifies all subscribed observers about the entity's state.
    * @return True if the notification is successful.
    */
-  virtual bool notifySubscribers() = 0;
+  virtual bool notifySubscribers(std::string context) = 0;
 
- private:
+ protected:
   std::vector<IObserver*> observers;
 };
 

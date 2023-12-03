@@ -20,7 +20,7 @@ class SimulationModel;
  * in the physical system. Subclasses of IEntity can override the `Update`
  * function to implement their own movement behavior.
  */
-class IEntity {
+class IEntity : public IPublisher{
  public:
   /**
    * @brief Constructor that assigns a unique ID to the entity.

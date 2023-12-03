@@ -16,6 +16,10 @@ class Helicopter : public IEntity {
 
   void update(double dt);
 
+  void subscribe(IObserver* observer);
+  void unsubscribe(IObserver* observer);
+  bool notifySubscribers(std::string context);
+
  private:
   IStrategy* movement = nullptr;
 };

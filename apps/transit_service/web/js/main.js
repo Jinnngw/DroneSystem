@@ -105,24 +105,35 @@ $( document ).ready(function() {
           removeEntity(data.details.id);
         }
 
-        if (data.event == "UpdateText"){
-        // else{
-          // Print debugging
-          console.log("Inside the onmessage() function");
-          console.log(data.details)
+        // CUSTOM-ADDED EVENTS BELOW
+        const notificationBar = document.getElementById('notification-bar');
+        if (data.event == "ReachedDestination"){
+          // // Print debugging
+          console.log("Inside the onmessage() function (ReachedDestination event)");
+          // console.log(data.details)
 
           const notificationText = data.details.name 
-                                   + " with ID " + data.details.id
-                                   + " is at (" + data.details.position[0] + ", " + data.details.position[1] + ", " + data.details.position[2] + ")"
-                                   + " and is at a speed of " + data.details.speed
+                                   + " has reached (" + data.details.position[0] + ", " + data.details.position[1] + ", " + data.details.position[2] + ")"
                                    + "\n";
 
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+
+        if (data.event == "NewDestination"){
+          const notificationText = data.details.name
+                                   + " is on their way to somewhere"
+                                   + "\n";
+          
           const notificationBar = document.getElementById('notification-bar');
           
-          if(!notificationBar.textContent.includes(notificationText)){
-            notificationBar.textContent = notificationBar.textContent + notificationText;
-          }
+          notificationBar.textContent = notificationBar.textContent + notificationText;
         }
+        
+        // Checks if notification bar has too much text and removes first line if so
+        if (notificationBar.textContent.length >= 500){
+          notificationBar.textContent = notificationBar.textContent.substring(notificationBar.textContent.indexOf('\n') + 1);
+        }
+
       }
     }
   }

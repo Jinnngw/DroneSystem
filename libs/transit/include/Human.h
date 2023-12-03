@@ -55,7 +55,7 @@ class Human : public IEntity {
     *         - Returns true if the notification was successful.
     *         - Returns false if there was an issue during the notification process.
    */
-  bool notifySubscribers();
+  bool notifySubscribers(std::string context);
 
  private:
   IStrategy* movement = nullptr;
