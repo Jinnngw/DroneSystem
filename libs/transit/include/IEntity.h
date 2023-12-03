@@ -3,9 +3,11 @@
 
 #include <vector>
 
+#include "IPublisher.h"
 #include "graph.h"
 #include "math/vector3.h"
 #include "util/json.h"
+
 
 class SimulationModel;
 
@@ -27,7 +29,7 @@ class IEntity {
 
   /**
    * @brief Constructor with JsonObject details to define the entity
-  */
+   */
   IEntity(JsonObject& details);
 
   /**

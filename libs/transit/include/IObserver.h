@@ -3,10 +3,15 @@
 
 #include <string>
 
-class IObserver{
-    public:
-        // Notify function is called by the publisher to notify SimulationModel, the concrete observer
-        virtual void sendNotif(IEntity* context) = 0;
+#include "IEntity.h"
+
+class IEntity;
+
+class IObserver {
+ public:
+  // Notify function is called by the publisher to notify SimulationModel, the
+  // concrete observer
+  virtual void sendNotif(IEntity* context) = 0;
 };
 
 #endif

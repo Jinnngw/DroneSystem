@@ -1,4 +1,5 @@
 #include "IEntity.h"
+#include "IObserver.h"
 
 IEntity::IEntity() {
   static int currentId = 0;
