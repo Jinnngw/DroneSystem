@@ -11,39 +11,7 @@ Car::Car(JsonObject& obj) : IEntity(obj) {
 }
 
 Car::~Car() {
-  if (toNextDestination) delete toNextDestination;
-}
-
-void Car::getNextDestination() {
-  if (model) {
-    // Generate random destination using rand()
-    double x = (std::rand() % static_cast<int>(maxX - minX + 1)) + minX;
-    double y = (std::rand() % static_cast<int>(maxY - minY + 1)) + minY;
-    double z = (std::rand() % static_cast<int>(maxZ - minZ + 1)) + minZ;
-
-    destination = Vector3(x, y, z);
-
-    toNextDestination =
-        new DijkstraStrategy(position, destination, model->getGraph());
-  }
-}
-
-void Car::update(double dt) {
-  if (!toNextDestination) {
-    getNextDestination();
-  }
-  toNextDestination->move(this, dt);
-
-  // Front of car model faces the wrong way, rotate to compensate
-  this->rotate(-M_PI / 4 + 0.01);
-
-  if (toNextDestination->isCompleted()) {
-    notifySubscribers("ReachedDestination");
-    delete toNextDestination;
-    toNextDestination = nullptr;
-    getNextDestination();
-    notifySubscribers("NewDestination");
-  }
+  if (movement) delete movement;
 }
 
 void Car::subscribe(IObserver* observer) {
@@ -70,4 +38,22 @@ bool Car::notifySubscribers(std::string context) {
   }
 
   return true;
+}
+
+void Car::update(double dt) {
+  if (movement && !movement->isCompleted()) {
+    movement->move(this, dt);
+    // Front of car model faces the wrong way, rotate to compensate
+    this->rotate(-M_PI / 4 + 0.01);
+  } else {
+    notifySubscribers("ReachedDestination");
+    if (movement) delete movement;
+    Vector3 dest;
+    dest.x = ((static_cast<double>(rand())) / RAND_MAX) * (2900) - 1400;
+    dest.y = position.y;
+    dest.z = ((static_cast<double>(rand())) / RAND_MAX) * (1600) - 800;
+    if (model)
+      movement = new DijkstraStrategy(position, dest, model->getGraph());
+    notifySubscribers("NewDestination");
+  }
 }

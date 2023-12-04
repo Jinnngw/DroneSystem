@@ -52,7 +52,4 @@ void Human::update(double dt) {
     if (model) movement = new AstarStrategy(position, dest, model->getGraph());
     notifySubscribers("NewDestination");
   }
-
-  // TEMPORARY CODE TO SIMULATE NOTIFICATION SYSTEM, DELETE THIS!!!!
-  // this->model->sendNotif(this);
 }
