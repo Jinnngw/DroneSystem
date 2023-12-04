@@ -5,6 +5,7 @@
 
 #include "IEntity.h"
 #include "IStrategy.h"
+#include "IObserver.h"
 #include "math/vector3.h"
 
 /**

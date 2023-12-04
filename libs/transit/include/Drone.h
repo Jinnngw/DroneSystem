@@ -1,13 +1,13 @@
 #ifndef DRONE_H_
 #define DRONE_H_
 
-#include <vector>
 #include <algorithm>
+#include <vector>
 
 #include "IEntity.h"
+#include "IObserver.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
-#include "IObserver.h"
 
 class Package;
 
@@ -31,7 +31,6 @@ class Drone : public IEntity {
    * @brief Destructor
    */
   ~Drone();
-
 
   /**
    * @brief Gets the next delivery in the scheduler
@@ -66,7 +65,7 @@ class Drone : public IEntity {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
-  std::vector<IObserver*> observers; 
+  std::vector<IObserver*> observers;
 };
 
-#endif // DRONE_H_
+#endif  // DRONE_H_
