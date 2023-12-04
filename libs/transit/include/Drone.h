@@ -2,10 +2,12 @@
 #define DRONE_H_
 
 #include <vector>
+#include <algorithm>
 
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
+#include "IObserver.h"
 
 class Package;
 
@@ -64,6 +66,7 @@ class Drone : public IEntity {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
+  std::vector<IObserver*> observers; 
 };
 
-#endif
+#endif // DRONE_H_
