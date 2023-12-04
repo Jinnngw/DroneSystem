@@ -6,6 +6,7 @@
 #include "IEntity.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
+#include "CarFactory.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
@@ -14,6 +15,7 @@ SimulationModel::SimulationModel(IController& controller)
   entityFactory.AddFactory(new RobotFactory());
   entityFactory.AddFactory(new HumanFactory());
   entityFactory.AddFactory(new HelicopterFactory());
+  entityFactory.AddFactory(new CarFactory());
 }
 
 SimulationModel::~SimulationModel() {
