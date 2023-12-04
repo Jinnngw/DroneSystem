@@ -108,22 +108,71 @@ $( document ).ready(function() {
         // CUSTOM-ADDED EVENTS BELOW
         const notificationBar = document.getElementById('notification-bar');
         if (data.event == "ReachedDestination"){
-          // // Print debugging
+          // Print debugging
           console.log("Inside the onmessage() function (ReachedDestination event)");
-          // console.log(data.details)
+          
+          var e = data.details;
+          if (e.id in entities){
+            console.log("HERHEHRHEHEHERehehRHEHREHRHEHhere");
+          }
 
-          const notificationText = data.details.name 
-                                   + " has reached (" + data.details.position[0] + ", " + data.details.position[1] + ", " + data.details.position[2] + ")"
-                                   + "\n";
+          // Getting model data using id of details (this will give current metrics for entity)
+          var model = entities[data.details.id];
+          
+          // Print debugging
+          console.log(data.details);
+          console.log("ID is " + data.details.id);
+          console.log(entities[data.details.id]);
 
+          // Destination entity's name is appended with a ! prefix to the event string, parse it
+          var destEntity = "NO DESTINATION";
+          if (data.event.includes("!")){
+            destEntity = data.event.substring(data.event.indexOf("!") + 1);
+          }
+
+          // Formatting text output of relevant data
+          var notificationText = "";
+          if (destEntity == "NO DESTINATION"){
+            notificationText = data.details.name 
+                               + " has reached (" + data.details.position[0] + ", " + data.details.position[1] + ", " + data.details.position[2] + ")"
+                               + "\n";
+
+            // notificationText = data.details.name 
+            //                    + " has reached (" + model.position.x + ", " + model.position.y + ", " + model.position.z + ")"
+            //                    + "\n";
+          }
+          else{
+            notificationText = data.details.name
+                               + " has reached " + destEntity
+                               + "\n";
+          }
+          
+          // Adding new text output to text of notification bar
           notificationBar.textContent = notificationBar.textContent + notificationText;
         }
 
-        if (data.event == "NewDestination"){
-          const notificationText = data.details.name
-                                   + " is on their way to somewhere"
-                                   + "\n";
+        if (data.event.includes("NewDestination")){
+          // Destination entity's name is appended with a ! prefix to the event string, parse it
+          var destEntity = "NO DESTINATION";
+          // if (data.event.includes("!")){
+          //   destEntity = data.event.substring(data.event.indexOf("!") + 1);
+          // }
           
+          // // Getting model data using id of details (this will give current metrics for entity)
+          // var model = entities[data.details.id];
+          
+          var notificationText = "";
+          if (destEntity == "NO DESTINATION"){
+            notificationText = data.details.name
+                               + " is on their way to a new destination"
+                               + "\n";
+          }
+          // else{
+          //   notificationText = data.details.name
+          //                      + " is on their way to " + destEntity
+          //                      + "\n";
+          // }
+
           const notificationBar = document.getElementById('notification-bar');
           
           notificationBar.textContent = notificationBar.textContent + notificationText;
