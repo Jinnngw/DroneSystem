@@ -2,10 +2,12 @@
 #define DRONE_H_
 
 #include <vector>
+#include <algorithm>
 
 #include "IEntity.h"
 #include "IStrategy.h"
 #include "math/vector3.h"
+#include "IObserver.h"
 
 class Package;
 
@@ -54,12 +56,17 @@ class Drone : public IEntity {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  void subscribe(IObserver* observer);
+  void unsubscribe(IObserver* observer);
+  bool notifySubscribers(std::string context);
+
  private:
   bool available = false;
   bool pickedUp = false;
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
+  std::vector<IObserver*> observers; 
 };
 
-#endif
+#endif // DRONE_H_
