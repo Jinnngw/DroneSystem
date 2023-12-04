@@ -3,7 +3,6 @@
 
 #include <cmath>
 #include <limits>
-#include <iostream> 
 
 #include "AstarStrategy.h"
 #include "BeelineStrategy.h"
@@ -80,65 +79,33 @@ void Drone::getNextDelivery() {
   }
 }
 
-void Drone::Update(double dt) {
-  bool statusSwitch = false;
-
-  if (available) {
-    GetNextDelivery();
-    if (!available) {
-      NotifySubscribers("StartedDelivery");
-      statusSwitch = true;
-    }
-  }
+void Drone::update(double dt) {
+  if (available)
+    getNextDelivery();
 
   if (toPackage) {
-    toPackage->Move(this, dt);
-    if (toPackage->IsCompleted()) {
+    toPackage->move(this, dt);
+
+    if (toPackage->isCompleted()) {
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
-      NotifySubscribers("PackagePickedUp");
-      statusSwitch = true;
     }
   } else if (toFinalDestination) {
-    toFinalDestination->Move(this, dt);
-    if (toFinalDestination->IsCompleted()) {
+    toFinalDestination->move(this, dt);
+
+    if (package && pickedUp) {
+      package->setPosition(position);
+      package->setDirection(direction);
+    }
+
+    if (toFinalDestination->isCompleted()) {
       delete toFinalDestination;
       toFinalDestination = nullptr;
-      if (package && pickedUp) {
-        package->SetPosition(position);
-        package->SetDirection(direction);
-        package->HandOff();
-      }
+      package->handOff();
       package = nullptr;
       available = true;
       pickedUp = false;
-      NotifySubscribers("DeliveryCompleted");
-      statusSwitch = true;
     }
   }
-
-  if (!statusSwitch) {
-    NotifySubscribers("StatusUpdate");
-  }
-}
-
-
-void Drone::subscribe(IObserver* observer) {
-  observers.push_back(observer);
-}
-
-void Drone::unsubscribe(IObserver* observer) {
-  observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
-}
-
-bool Drone::notifySubscribers(std::string context) {
-  if (observers.empty()) {
-    std::cout << "No observers found." << std::endl;
-    return false;
-  }
-  for (IObserver* observer : observers) {
-    observer->sendNotif(this, context);
-  }
-  return true;
 }
