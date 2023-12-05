@@ -136,5 +136,6 @@ void SimulationModel::sendNotif(IEntity* context, std::string moreContext) {
   // model\n"; std::cout << "The newest entity is a " <<
   // this->entities[entities.size()-1]->getName() << std::endl;
 
+  // Sending to front end
   this->controller.sendEventToView(moreContext, context->getDetails());
 }

@@ -67,6 +67,10 @@ void IEntity::setColor(std::string col_) {
   color = col_;
 }
 
+void IEntity::setDetails(std::string key, std::string value){
+  details[key] = value;
+}
+
 void IEntity::rotate(double angle) {
   Vector3 dirTmp = direction;
   direction.x = dirTmp.x * std::cos(angle) - dirTmp.z * std::sin(angle);

@@ -80,46 +80,61 @@ void Drone::getNextDelivery() {
   }
 }
 
-void Drone::Update(double dt) {
+void Drone::update(double dt) {
   bool statusSwitch = false;
 
   if (available) {
-    GetNextDelivery();
+    getNextDelivery();
     if (!available) {
-      NotifySubscribers("StartedDelivery");
+      // Assign the package's name as the dest value in details of Drone
+      this->setDetails("dest", this->package->getName());
+      
+      //Notify SimulationModel
+      notifySubscribers("StartedDelivery");
+      
       statusSwitch = true;
     }
   }
 
   if (toPackage) {
-    toPackage->Move(this, dt);
-    if (toPackage->IsCompleted()) {
+    toPackage->move(this, dt);
+    if (toPackage->isCompleted()) {
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
-      NotifySubscribers("PackagePickedUp");
       statusSwitch = true;
+
+      // Package has been picked up, notify SimulationModel (the observer)
+      this->setDetails("dest", this->package->getName());
+      notifySubscribers("PackagePickedUp");
+
     }
   } else if (toFinalDestination) {
-    toFinalDestination->Move(this, dt);
-    if (toFinalDestination->IsCompleted()) {
+    toFinalDestination->move(this, dt);
+    if (toFinalDestination->isCompleted()) {
+      // Saving package name before it is released
+      std::string destination = this->package->getName();
+      
       delete toFinalDestination;
       toFinalDestination = nullptr;
       if (package && pickedUp) {
-        package->SetPosition(position);
-        package->SetDirection(direction);
-        package->HandOff();
+        package->setPosition(position);
+        package->setDirection(direction);
+        package->handOff();
       }
       package = nullptr;
       available = true;
       pickedUp = false;
-      NotifySubscribers("DeliveryCompleted");
       statusSwitch = true;
+
+      // Package has been delivered, notify SimulationModel
+      this->setDetails("dest", destination);
+      notifySubscribers("DeliveryCompleted");
     }
   }
 
   if (!statusSwitch) {
-    NotifySubscribers("StatusUpdate");
+    // notifySubscribers("StatusUpdate");
   }
 }
 

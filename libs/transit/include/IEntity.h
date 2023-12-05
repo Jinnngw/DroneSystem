@@ -106,6 +106,12 @@ class IEntity : public IPublisher{
   virtual void setColor(std::string col_);
 
   /**
+   * @brief Sets the details of the entity
+   * @param 
+   */
+  virtual void setDetails(std::string key, std::string value);
+
+  /**
    * @brief Rotate the entity around y axis.
    * @param angle The angle to rotate the entity by.
    */

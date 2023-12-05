@@ -46,7 +46,6 @@ void Car::update(double dt) {
     // Front of car model faces the wrong way, rotate to compensate
     this->rotate(-M_PI / 4 + 0.01);
   } else {
-    notifySubscribers("ReachedDestination");
     if (movement) delete movement;
     Vector3 dest;
     dest.x = ((static_cast<double>(rand())) / RAND_MAX) * (2900) - 1400;
@@ -54,6 +53,9 @@ void Car::update(double dt) {
     dest.z = ((static_cast<double>(rand())) / RAND_MAX) * (1600) - 800;
     if (model)
       movement = new DijkstraStrategy(position, dest, model->getGraph());
+    
+    // Notifying observer (SimulationModel) that car is driving to new destination
+    this->setDetails("dest", dest.toString());
     notifySubscribers("NewDestination");
   }
 }
