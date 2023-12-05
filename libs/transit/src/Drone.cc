@@ -79,8 +79,6 @@ void Drone::update(double dt) {
   if (toPackage) {
     toPackage->move(this, dt);
     if (toPackage->isCompleted()) {
-    toPackage->move(this, dt);
-    if (toPackage->isCompleted()) {
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
