@@ -61,7 +61,6 @@ void Drone::getNextDelivery() {
 }
 
 void Drone::update(double dt) {
-  bool statusSwitch = false;
 
   if (available) {
     getNextDelivery();
@@ -72,7 +71,6 @@ void Drone::update(double dt) {
       //Notify SimulationModel
       notifySubscribers("StartedDelivery");
       
-      statusSwitch = true;
     }
   }
 
@@ -82,7 +80,6 @@ void Drone::update(double dt) {
       delete toPackage;
       toPackage = nullptr;
       pickedUp = true;
-      statusSwitch = true;
 
       // Package has been picked up, notify SimulationModel (the observer)
       this->setDetails("dest", this->package->getName());
@@ -91,33 +88,28 @@ void Drone::update(double dt) {
     }
   } else if (toFinalDestination) {
     toFinalDestination->move(this, dt);
+    
+    if (package && pickedUp) {
+        package->setPosition(position);
+        package->setDirection(direction);
+      }
+    
     if (toFinalDestination->isCompleted()) {
       // Saving package name before it is released
       std::string destination = this->package->getName();
       
       delete toFinalDestination;
       toFinalDestination = nullptr;
-      if (package && pickedUp) {
-        package->setPosition(position);
-        package->setDirection(direction);
-        package->handOff();
-        package->setPosition(position);
-        package->setDirection(direction);
-        package->handOff();
-      }
+      
+      package->handOff();      
       package = nullptr;
       available = true;
       pickedUp = false;
-      statusSwitch = true;
 
       // Package has been delivered, notify SimulationModel
       this->setDetails("dest", destination);
       notifySubscribers("DeliveryCompleted");
     }
-  }
-
-  if (!statusSwitch) {
-    // notifySubscribers("StatusUpdate");
   }
 }
 
