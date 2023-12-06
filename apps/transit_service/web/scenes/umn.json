@@ -61,6 +61,20 @@
     }
   },
   {
+    "command": "CreateEntity",
+    "params":{
+      "type": "car",
+      "name": "Car",
+      "mesh": "assets/model/car2.glb",
+      "position": [100, 270, 100],
+      "scale": [1, 1, 1],
+      "rotation": [0, 0, 0, 0],
+      "direction": [1,0,0],
+      "speed": 30.0,
+      "offset": [0, 0.6, 0]
+    }
+  },
+  {
     "command": "AddMesh",
     "params": {
       "type": "route",
