@@ -1,11 +1,11 @@
-#ifndef ICAR_STATE_H_
-#define ICAR_STATE_H_
+#ifndef IDRONE_STATE_H_
+#define IDRONE_STATE_H_
 
-#include "Car.h"
+#include "Drone.h"
 
-class Car;
+class Drone;
 
-class ICarState{
+class IDroneState{
     public:
 
     /**
@@ -14,8 +14,8 @@ class ICarState{
     */
     virtual void update(double dt) = 0;
 
-    protected:
-    Car* car;
+    private:
+    Drone* drone;
 };
 
 #endif

@@ -1,57 +1,56 @@
-#include "Found.h"
+#include "HumanFound.h"
 
 #include "AstarStrategy.h"
 #include "JumpDecorator.h"
 
-void Found::update(double dt) {
+void HumanFound::update(double dt) {
   Package* closestPackage = findClosestPackage();
 
   if (closestPackage) {
     moveTowardsPackage();
   } else {
     // No package found, revert to Looking state
-    human->changeState(new Looking(human));
+    human->changeState(new HumanLooking());
   }
 }
 
-void Found::notifySubscribers(Vector3 location) {
+void HumanFound::notifySubscribers(Vector3 location) {
   // Notify ICarSubscribers about the found location
   for (auto car : human->getCars()) {
     car->notify(location);
   }
 }
 
-void Found::moveTowardsPackage() {
+void HumanFound::moveTowardsPackage() {
   // Path strategy with JumpDecorator
   IStrategy* pathStrategy = new JumpDecorator(new JumpDecorator(
-      new AstarStrategy(human->getPosition(), closestPackage->getDestination(),
-                        model->getGraph())));
+      new AstarStrategy(human->getPosition(), this->findClosestPackage()->getDestination(),
+                        human->getModel()->getGraph())));
 
   // Increase speed
-  double originalSpeed = human->speed;
-  human->speed *= 2.0;
+  human->setSpeed(human->getSpeed() * 2);
 
   // Travel to package
   pathStrategy->move(human, 1.0);
 
   // Decrease speed back to original value
-  human->speed = originalSpeed;
+  human->setSpeed(human->getSpeed() / 2);
 
   // Notify ICarSubscribers
-  notifySubscribers(closestPackage->getDestination());
+  notifySubscribers(this->findClosestPackage()->getDestination());
 
   // Change state back to Looking
-  human->changeState(new Looking(human));
+  human->changeState(new HumanLooking(human));
 }
 
-Package* Found::findClosestPackage() {
+Package* HumanFound::findClosestPackage() {
   // Find the closest package among available packages
   std::vector<Package*> packages = human->getPackages();
   Package* closestPackage = nullptr;
   double minDistance = std::numeric_limits<double>::max();
 
-  for (auto package : packages) {
-    double distance = (package->getPosition() - human->getPosition()).length();
+  for (Package* package : packages) {
+    double distance = package->getPosition().dist(human->getPosition());
     if (distance < minDistance) {
       minDistance = distance;
       closestPackage = package;

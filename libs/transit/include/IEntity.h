@@ -86,6 +86,18 @@ class IEntity {
   virtual double getSpeed() const;
 
   /**
+   * @brief Sets the speed of the entity.
+   * @param speed The new speed (as a double).
+   */
+  virtual void setSpeed(double speed);
+
+  /**
+   * @brief Gets the pointer to the IEntity's simulation model.
+   * @return The pointer to the simulation model.
+   */
+  virtual SimulationModel* getModel() const;
+
+  /**
    * @brief Sets the position of the entity.
    * @param pos_ The desired position of the entity.
    */

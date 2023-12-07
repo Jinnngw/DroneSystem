@@ -7,9 +7,12 @@
 #include "AstarStrategy.h"
 #include "SimulationModel.h"
 
+#include "IHumanState.h"
+#include "HumanLooking.h"
+
 Human::Human(JsonObject& obj) : IEntity(obj) {
   // Initialize the default state
-  state = new LookingState(this);
+  state = new HumanLooking();
 }
 
 Human::~Human() {
@@ -22,6 +25,18 @@ void Human::update(double dt) { state->update(dt); }
 void Human::changeState(IHumanState* newState) {
   delete state;
   state = newState;
+}
+
+IStrategy* Human::getMovement(){
+  return this->movement;
+}
+
+void Human::setMovement(IStrategy* movement){
+  this->movement = movement;
+}
+
+void Human::deleteMovement(){
+  delete movement;
 }
 
 std::vector<Package*> Human::getPackages() { return packages.getPackageList(); }

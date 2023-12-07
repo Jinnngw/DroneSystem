@@ -1,0 +1,13 @@
+#ifndef HUMAN_LOOKING_H_
+#define HUMAN_LOOKING_H_
+
+#include "IHumanState.h"
+
+class HumanLooking : public IHumanState {
+ public:
+  // explicit Looking(Human* human) : IHumanState(human) {}
+
+  void update(double dt) override;
+};
+
+#endif

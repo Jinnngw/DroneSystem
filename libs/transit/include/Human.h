@@ -7,7 +7,9 @@
 #include "IEntity.h"
 #include "IHumanState.h"
 #include "IStrategy.h"
-#include "Package.h"
+#include "PackageDataController.h"
+
+class IHumanState;
 
 class Human : public IEntity {
  public:
@@ -22,6 +24,12 @@ class Human : public IEntity {
   void update(double dt);
 
   void changeState(IHumanState* state);
+
+  IStrategy* getMovement();
+
+  void setMovement(IStrategy* movement);
+
+  void deleteMovement();
 
   std::vector<Package*> getPackages();
 

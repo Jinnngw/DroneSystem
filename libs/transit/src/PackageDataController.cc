@@ -1,8 +1,11 @@
 #include "PackageDataController.h"
 
-PackageDataController PackageDataController::instance{};
-
-PackageDataController& PackageDataController::getInstance() { return instance; }
+PackageDataController* PackageDataController::getInstance() {
+  if (instance == nullptr){
+    instance = new PackageDataController();
+  }
+  return instance;
+}
 
 void PackageDataController::populatePackageData(SimulationModel* sim) {
   // ...

@@ -9,7 +9,7 @@
 class PackageDataController {
  public:
   // Singleton pattern
-  static PackageDataController& getInstance();
+  static PackageDataController* getInstance();
 
   void populatePackageData(SimulationModel* sim);
 
@@ -18,7 +18,7 @@ class PackageDataController {
  private:
   // Private constructor to prevent instantiation
   PackageDataController() = default;
-  static PackageDataController instance;
+  static PackageDataController* instance;
   std::vector<Package*> packageList;
 };
 

@@ -15,6 +15,8 @@
 #include "Package.h"
 #include "SimulationModel.h"
 
+#include "IDroneState.h"
+
 Drone::Drone(JsonObject& obj) : IEntity(obj) {
   available = true;
 }

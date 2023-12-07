@@ -55,6 +55,14 @@ double IEntity::getSpeed() const {
   return speed;
 }
 
+void IEntity::setSpeed(double speed) const {
+  this->speed = speed;
+}
+
+SimulationModel* IEntity::getModel() const {
+  return model;
+}
+
 void IEntity::setPosition(Vector3 pos_) {
   position = pos_;
 }

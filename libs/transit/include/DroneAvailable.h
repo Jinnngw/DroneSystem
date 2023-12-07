@@ -1,21 +1,15 @@
-#ifndef ICAR_STATE_H_
-#define ICAR_STATE_H_
+#ifndef DRONE_AVAILABLE_H_
+#define DRONE_AVAILABLE_H_
 
-#include "Car.h"
+#include "IDroneState.h"
 
-class Car;
-
-class ICarState{
-    public:
+class DroneAvailable : public IDroneState{
 
     /**
      * @brief update the car's state(speed and destination)
      * @param dt Delta time (type: double)
     */
     virtual void update(double dt) = 0;
-
-    protected:
-    Car* car;
 };
 
 #endif

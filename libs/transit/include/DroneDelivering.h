@@ -1,9 +1,9 @@
-#ifndef PICKING_UP_H_
-#define PICKING_UP_H_
+#ifndef DRONE_DELIVERING_H_
+#define DRONE_DELIVERING_H_
 
-#include "ICarState.h"
+#include "IDroneState.h"
 
-class PickingUp : public ICarState{
+class DroneDelivering: public IDroneState{
 
     /**
      * @brief update the car's state(speed and destination)

@@ -9,6 +9,9 @@
 #include "ICarState.h"
 #include "ICarSubscriber.h"
 #include "Package.h"
+
+class ICarState;
+
 /**
  * @class Car
  * @brief Represents a car in a physical system. cars move using euler
@@ -19,9 +22,8 @@ class Car : public IEntity, public ICarSubscriber{
   /**
    * @brief Cars are created with a name
    * @param obj JSON object containing the car's information
-   * @param initialState Car's initial State (type:ICarState)
    */
-  Car(JsonObject& obj, ICarState* initialState);
+  Car(JsonObject& obj);
 
   /**
    * @brief Destructor
@@ -34,10 +36,33 @@ class Car : public IEntity, public ICarSubscriber{
    */
   void update(double dt);
 
+  IStrategy* getToNextDestination();
+
   /**
    * @brief Gets the next destination in the scheduler
    */
   void getNextDestination();
+
+  /**
+   * @brief Allows destination to be explicitly defined and set
+   * @param dest Vector3 of destination
+   */
+  void setNextDestination(Vector3 dest);
+
+  void clearNextDestination();
+
+  void deleteNextDestination();
+
+  /**
+   * @brief Gets the Car's Package pointer
+   */
+  Package* getPackage();
+
+  /**
+   * @brief Assigns a target package to Car
+   * @param package a Package pointer
+   */
+  void setPackage(Package* package);
 
   /**
    * @brief Change the state of car

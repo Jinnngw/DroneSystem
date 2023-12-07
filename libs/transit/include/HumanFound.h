@@ -1,11 +1,11 @@
-#ifndef FOUND_H_
-#define FOUND_H_
+#ifndef HUMAN_FOUND_H_
+#define HUMAN_FOUND_H_
 
 #include "IHumanState.h"
 
-class Found : public IHumanState {
+class HumanFound : public IHumanState {
  public:
-  explicit Found(Human* human) : IHumanState(human) {}
+  // explicit Found(Human* human) : IHumanState(human) {}
 
   void update(double dt) override;
 

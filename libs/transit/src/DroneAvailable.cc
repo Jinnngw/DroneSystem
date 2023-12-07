@@ -1,6 +1,6 @@
-#include "Available.h"
+#include "DroneAvailable.h"
 
-Available::updata(double dt){
+void DroneAvailable::update(double dt){
 
 //If receiving notification from Human, using changeState() to set the car to PickingUp
 

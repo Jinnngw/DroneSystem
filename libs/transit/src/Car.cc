@@ -6,17 +6,22 @@
 #include "DijkstraStrategy.h"
 #include "SimulationModel.h"
 #include "ICarState.h"
-#include "Available.h"
-#include "PickingUp.h"
-#include "Success.h"
+#include "CarAvailable.h"
 
-Car::Car(JsonObject& obj,Available* availableState) : IEntity(obj) {
+Car::Car(JsonObject& obj) : IEntity(obj) {
   std::srand(static_cast<unsigned int>(std::time(0)));
-  this->state = availableState;
+  this->state = new CarAvailable();
 }
 
 Car::~Car() {
   if (toNextDestination) delete toNextDestination;
+}
+
+// WARNING: big difference between getToNextDestination and getNextDestination
+  // getToNextDestination will just return the current toNextDestination
+  // getNextDestination will get a BRAND NEW destination and set the DijkstraStrategy accordingly
+IStrategy* Car::getToNextDestination(){
+  return this->toNextDestination;
 }
 
 void Car::getNextDestination() {
@@ -28,32 +33,36 @@ void Car::getNextDestination() {
 
     destination = Vector3(x, y, z);
 
-    toNextDestination =
+    this->toNextDestination =
         new DijkstraStrategy(position, destination, model->getGraph());
   }
+}
+
+void Car::setNextDestination(Vector3 dest){
+  toNextDestination = new DijkstraStrategy(position, dest, model->getGraph());
+}
+
+void Car::clearNextDestination(){
+  toNextDestination = nullptr;
+}
+
+void Car::deleteNextDestination(){
+  delete this->toNextDestination;
+}
+
+Package* Car::getPackage(){
+  return this->package;
+}
+
+void Car::setPackage(Package* package){
+  this->package = package;
 }
 
 void Car::update(double dt) {
 
   this->state->update(dt);
 
-  if (!toNextDestination) {
-    getNextDestination();
-  }
-  toNextDestination->move(this, dt);
-
-  // Front of car model faces the wrong way, rotate to compensate
-  this->rotate(-M_PI / 4 + 0.01);
-
-  if (toNextDestination->isCompleted()) {
-    delete toNextDestination;
-    toNextDestination = nullptr;
-    getNextDestination();
-  }
-
 }
-
-
 
 void Car::changeState(ICarState* state) {
   this->state = state;

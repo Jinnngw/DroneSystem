@@ -3,10 +3,12 @@
 
 #include "Human.h"
 
+class Human;
+
 class IHumanState {
  public:
-  explicit IHumanState(Human* human) : human(human) {}
-  virtual ~IHumanState() = default;
+  // explicit IHumanState(Human* human) : human(human) {}
+  // virtual ~IHumanState() = default;
   virtual void update(double dt) = 0;
 
  protected:
