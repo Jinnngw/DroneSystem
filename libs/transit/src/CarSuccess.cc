@@ -1,4 +1,6 @@
 #include "CarSuccess.h"
+#include "CarAvailable.h"
+#include "SimulationModel.h"
 
 void CarSuccess::update(double dt){    
     // Delete the package from the SimulationModel

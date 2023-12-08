@@ -55,7 +55,7 @@ double IEntity::getSpeed() const {
   return speed;
 }
 
-void IEntity::setSpeed(double speed) const {
+void IEntity::setSpeed(double speed) {
   this->speed = speed;
 }
 

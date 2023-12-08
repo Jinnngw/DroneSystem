@@ -11,6 +11,7 @@
 #include "HumanLooking.h"
 
 Human::Human(JsonObject& obj) : IEntity(obj) {
+  PackageDataController* controller = PackageDataController::getInstance();
   // Initialize the default state
   state = new HumanLooking();
 }

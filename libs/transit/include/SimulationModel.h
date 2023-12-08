@@ -79,11 +79,12 @@ class SimulationModel {
 
   std::deque<Package*> scheduledDeliveries;
 
+  void removeFromSim(int id);
+
  protected:
   IController& controller;
   std::map<int, IEntity*> entities;
   std::set<int> removed;
-  void removeFromSim(int id);
   const routing::IGraph* graph;
   CompositeFactory entityFactory;
 };

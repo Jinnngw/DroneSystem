@@ -1,7 +1,8 @@
 #include "HumanFound.h"
-
 #include "AstarStrategy.h"
 #include "JumpDecorator.h"
+#include "HumanLooking.h"
+
 
 void HumanFound::update(double dt) {
   Package* closestPackage = findClosestPackage();
@@ -40,7 +41,7 @@ void HumanFound::moveTowardsPackage() {
   notifySubscribers(this->findClosestPackage()->getDestination());
 
   // Change state back to Looking
-  human->changeState(new HumanLooking(human));
+  human->changeState(new HumanLooking());
 }
 
 Package* HumanFound::findClosestPackage() {

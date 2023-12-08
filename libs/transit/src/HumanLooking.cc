@@ -1,5 +1,5 @@
 #include "HumanLooking.h"
-
+#include "HumanFound.h"
 #include "AstarStrategy.h"
 
 void HumanLooking::update(double dt) {
@@ -16,8 +16,8 @@ void HumanLooking::update(double dt) {
                                            human->getModel()->getGraph()));
   }
 
-  for (auto package : packages) {
-    double distance = (package->getPosition() - human->getPosition()).length();
+  for (auto package : human->getPackages()) {
+    double distance = package->getPosition().dist(human->getPosition());
     // Assuming 100 units is the detection radius
     if (distance < 100.0) {
       // A package is close by, change state to Found

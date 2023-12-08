@@ -1,5 +1,6 @@
-#ifndef CAR_PICKING_UP_H_
-#define CAR_PICKING_UP_H_
+#ifndef CAR_SUCCESS_H_
+#define CAR_SUCCESS_H_
+
 
 #include "ICarState.h"
 
@@ -12,4 +13,4 @@ class CarSuccess : public ICarState{
     void update(double dt);
 };
 
-#endif
+#endif // CAR_SUCCESS_H_

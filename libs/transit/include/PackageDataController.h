@@ -15,11 +15,12 @@ class PackageDataController {
 
   std::vector<Package*> getPackageList();
 
+
+  static PackageDataController* instance;
+  std::vector<Package*> packageList;
  private:
   // Private constructor to prevent instantiation
   PackageDataController() = default;
-  static PackageDataController* instance;
-  std::vector<Package*> packageList;
 };
 
 #endif  // PACKAGE_DATA_CONTROLLER_H_
