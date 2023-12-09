@@ -4,12 +4,14 @@
 #include "ICarState.h"
 
 class CarAvailable : public ICarState{
-   
-    /**
-     * @brief update the car's state(speed and destination)
-     * @param dt Delta time (type: double)
-    */
-    void update(double dt);
+    public:
+        CarAvailable(Car* car);
+
+        /**
+         * @brief update the car's state(speed and destination)
+         * @param dt Delta time (type: double)
+        */
+        void update(double dt);
 };
 
 #endif

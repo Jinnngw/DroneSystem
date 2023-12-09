@@ -1,11 +1,11 @@
-#ifndef ICAR_SUBSCRIBIBER_H_
-#define ICAR_SUBSCRIBIBER_H_
+#ifndef ICAR_SUBSCRIBER_H_
+#define ICAR_SUBSCRIBER_H_
 #include "math/vector3.h"
 
 
 class ICarSubscriber {
 public:
-    void notify(Vector3 location);
+    virtual void notify(Vector3 location) = 0;
 };
 
 #endif

@@ -2,7 +2,12 @@
 #include "HumanFound.h"
 #include "AstarStrategy.h"
 
+HumanLooking::HumanLooking(Human* human){
+  this->human = human;
+}
+
 void HumanLooking::update(double dt) {
+
   if (human->getMovement() && !human->getMovement()->isCompleted()) {
     human->getMovement()->move(human, dt);
   } else {

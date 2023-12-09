@@ -2,6 +2,7 @@
 #include "AstarStrategy.h"
 #include "JumpDecorator.h"
 #include "HumanLooking.h"
+#include "ICarSubscriber.h"
 
 
 void HumanFound::update(double dt) {
@@ -11,7 +12,7 @@ void HumanFound::update(double dt) {
     moveTowardsPackage();
   } else {
     // No package found, revert to Looking state
-    human->changeState(new HumanLooking());
+    human->changeState(new HumanLooking(this->human));
   }
 }
 
@@ -41,7 +42,7 @@ void HumanFound::moveTowardsPackage() {
   notifySubscribers(this->findClosestPackage()->getDestination());
 
   // Change state back to Looking
-  human->changeState(new HumanLooking());
+  human->changeState(new HumanLooking(this->human));
 }
 
 Package* HumanFound::findClosestPackage() {

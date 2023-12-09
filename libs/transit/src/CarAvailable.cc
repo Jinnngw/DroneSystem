@@ -1,5 +1,9 @@
 #include "CarAvailable.h"
 
+CarAvailable::CarAvailable(Car* car){
+    this->car = car;
+}
+
 void CarAvailable::update(double dt){
     if (!this->car->getToNextDestination()) {
         this->car->getNextDestination();

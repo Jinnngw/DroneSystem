@@ -38,7 +38,7 @@ class Human : public IEntity {
  private:
   IStrategy* movement = nullptr;
   IHumanState* state;
-  PackageDataController packages;
+  PackageDataController* packages;
   std::vector<ICarSubscriber*> cars;
 };
 

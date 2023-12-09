@@ -11,9 +11,9 @@
 #include "HumanLooking.h"
 
 Human::Human(JsonObject& obj) : IEntity(obj) {
-  PackageDataController* controller = PackageDataController::getInstance();
+  this->packages = PackageDataController::getInstance();
   // Initialize the default state
-  state = new HumanLooking();
+  state = new HumanLooking(this);
 }
 
 Human::~Human() {
@@ -21,7 +21,9 @@ Human::~Human() {
   if (movement) delete movement;
 }
 
-void Human::update(double dt) { state->update(dt); }
+void Human::update(double dt) {
+  state->update(dt);
+}
 
 void Human::changeState(IHumanState* newState) {
   delete state;
@@ -40,6 +42,6 @@ void Human::deleteMovement(){
   delete movement;
 }
 
-std::vector<Package*> Human::getPackages() { return packages.getPackageList(); }
+std::vector<Package*> Human::getPackages() { return packages->getPackageList(); }
 
 std::vector<ICarSubscriber*> Human::getCars() { return cars; }

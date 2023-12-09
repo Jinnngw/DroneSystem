@@ -10,7 +10,7 @@
 
 Car::Car(JsonObject& obj) : IEntity(obj) {
   std::srand(static_cast<unsigned int>(std::time(0)));
-  this->state = new CarAvailable();
+  this->state = new CarAvailable(this);
 }
 
 Car::~Car() {
@@ -59,11 +59,14 @@ void Car::setPackage(Package* package){
 }
 
 void Car::update(double dt) {
-
-  this->state->update(dt);
-
+  // this->state->update(dt);
 }
 
 void Car::changeState(ICarState* state) {
   this->state = state;
+}
+
+void Car::notify(Vector3 location){
+  // NOTIFICATION THINGY STUFF HERE
+  std::cout << "STUFF GOES HERE" << std::endl;
 }

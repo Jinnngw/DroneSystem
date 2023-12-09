@@ -17,5 +17,5 @@ void CarSuccess::update(double dt){
     this->car->getNextDestination();
     
     // Change state of car back to Available
-    this->car->changeState(new CarAvailable());
+    this->car->changeState(new CarAvailable(this->car));
 }

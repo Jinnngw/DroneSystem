@@ -83,6 +83,8 @@ class Car : public IEntity, public ICarSubscriber{
    */
   Car& operator=(const Car& car) = delete;
 
+  void notify(Vector3 location);
+
  private:
   ICarState* state;
   IStrategy* toNextDestination = nullptr;
