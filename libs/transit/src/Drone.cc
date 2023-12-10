@@ -15,15 +15,17 @@
 #include "Package.h"
 #include "SimulationModel.h"
 
-#include "IDroneState.h"
+#include "DroneAvailable.h"
 
 Drone::Drone(JsonObject& obj) : IEntity(obj) {
   available = true;
+  this->state = new DroneAvailable(this);
 }
 
 Drone::~Drone() {
   if (toPackage) delete toPackage;
   if (toFinalDestination) delete toFinalDestination;
+  if (state) delete state;
 }
 
 void Drone::getNextDelivery() {
@@ -82,32 +84,52 @@ void Drone::getNextDelivery() {
 }
 
 void Drone::update(double dt) {
-  if (available)
-    getNextDelivery();
+  this->state->update(dt);
+}
 
-  if (toPackage) {
-    toPackage->move(this, dt);
 
-    if (toPackage->isCompleted()) {
-      delete toPackage;
-      toPackage = nullptr;
-      pickedUp = true;
-    }
-  } else if (toFinalDestination) {
-    toFinalDestination->move(this, dt);
+void Drone::changeState(IDroneState* state){
+  this->state = state;
+}
 
-    if (package && pickedUp) {
-      package->setPosition(position);
-      package->setDirection(direction);
-    }
+bool Drone::getAvailable(){
+  return this->available;
+}
 
-    if (toFinalDestination->isCompleted()) {
-      delete toFinalDestination;
-      toFinalDestination = nullptr;
-      package->handOff();
-      package = nullptr;
-      available = true;
-      pickedUp = false;
-    }
-  }
+bool Drone::getPickedUp(){
+  return this->pickedUp;
+}
+
+Package* Drone::getPackage(){
+  return this->package;
+}
+
+IStrategy* Drone::getToPackage(){
+  return this->toPackage;
+}
+
+IStrategy* Drone::getToFinalDestination(){
+  return this->toFinalDestination;
+}
+
+void Drone::resetToPackage(){
+  delete this->toPackage;
+  toPackage = nullptr;
+}
+
+void Drone::resetPackage(){
+  this->package = nullptr;
+}
+
+void Drone::resetToFinalDestination(){
+  delete toFinalDestination;
+  toFinalDestination = nullptr;
+}
+
+void Drone::setPickedUp(bool val){
+  this->pickedUp = val;
+}
+
+void Drone::setAvailable(bool val){
+  this->available = val;
 }

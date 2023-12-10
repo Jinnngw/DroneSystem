@@ -35,6 +35,9 @@ class PathStrategy : public IStrategy {
    * @return True if complete, false if not complete
    */
   virtual bool isCompleted();
+
+  std::vector<std::vector<float>> getPath();
+  void setPath(std::vector<std::vector<float>>);
 };
 
 #endif  // PATH_STRATEGY_H_

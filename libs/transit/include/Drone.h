@@ -7,6 +7,9 @@
 #include "IStrategy.h"
 #include "math/vector3.h"
 
+#include "IDroneState.h"
+
+class IDroneState;
 class Package;
 
 // Represents a drone in a physical system.
@@ -54,12 +57,29 @@ class Drone : public IEntity {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  // CUSTOM ADDED FUNCTIONS BELOW (ADD TO UML)
+  void changeState(IDroneState* state);
+
+  bool getAvailable();
+  bool getPickedUp();
+  Package* getPackage();
+  IStrategy* getToPackage();
+  IStrategy* getToFinalDestination();
+
+  void resetToPackage();
+  void resetToFinalDestination();
+  void resetPackage();
+
+  void setPickedUp(bool val);
+  void setAvailable(bool val);
+
  private:
   bool available = false;
   bool pickedUp = false;
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
+  IDroneState* state;
 };
 
 #endif

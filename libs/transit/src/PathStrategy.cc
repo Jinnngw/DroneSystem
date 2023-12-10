@@ -1,7 +1,9 @@
 #include "PathStrategy.h"
 
 PathStrategy::PathStrategy(std::vector<std::vector<float>> p)
-  : path(p), index(0) {}
+  : path(p), index(0) {
+
+  }
 
 void PathStrategy::move(IEntity* entity, double dt) {
   if (isCompleted())
@@ -19,4 +21,14 @@ void PathStrategy::move(IEntity* entity, double dt) {
 
 bool PathStrategy::isCompleted() {
   return index >= path.size();
+}
+
+std::vector<std::vector<float>> PathStrategy::getPath(){
+  std::cout << "Path found" << std::endl;
+  std::cout << path[0][0] << std::endl;
+  return this->path;
+}
+
+void PathStrategy::setPath(std::vector<std::vector<float>> path){
+  this->path = path;
 }
