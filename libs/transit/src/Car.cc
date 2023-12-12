@@ -6,7 +6,10 @@
 #include "DijkstraStrategy.h"
 #include "SimulationModel.h"
 #include "ICarState.h"
+#include "CarPickingUp.h"
 #include "CarAvailable.h"
+#include "Package.h"
+
 
 Car::Car(JsonObject& obj) : IEntity(obj) {
   std::srand(static_cast<unsigned int>(std::time(0)));
@@ -59,14 +62,32 @@ void Car::setPackage(Package* package){
 }
 
 void Car::update(double dt) {
-  // this->state->update(dt);
+  this->state->update(dt);
 }
 
 void Car::changeState(ICarState* state) {
   this->state = state;
 }
 
-void Car::notify(Vector3 location){
+void Car::notify(Vector3 location,Package* package){
   // NOTIFICATION THINGY STUFF HERE
-  std::cout << "STUFF GOES HERE" << std::endl;
+  
+  //check if the state is available
+   if (CarAvailable* availableState = dynamic_cast<CarAvailable*>(this->state))
+   {
+       //set the car's next destination is package's location
+      this->setNextDestination(location);
+
+      //set the car's package pointer pointes to the new package.
+      this->setPackage(package);
+
+      //change the car's state from available to picking up
+      this->changeState(new CarPickingUp());
+
+      std::cout << "car receives the package's location" << std::endl;
+
+      std::cout << "car changes the state from available to pickingup" << std::endl;
+   }
+ 
+  // std::cout << "STUFF GOES HERE" << std::endl;
 }

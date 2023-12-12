@@ -83,7 +83,7 @@ class Car : public IEntity, public ICarSubscriber{
    */
   Car& operator=(const Car& car) = delete;
 
-  void notify(Vector3 location);
+  void notify(Vector3 location,Package* package);
 
  private:
   ICarState* state;

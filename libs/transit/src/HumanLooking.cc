@@ -8,8 +8,12 @@ HumanLooking::HumanLooking(Human* human){
 
 void HumanLooking::update(double dt) {
 
+  //if human has get to the package's destination
   if (human->getMovement() && !human->getMovement()->isCompleted()) {
     human->getMovement()->move(human, dt);
+    human->changeState(new HumanFound(this->human));
+    std::cout << "Human has been set from Looking to Found" << std::endl;
+
   } else {
     if (human->getMovement()) human->deleteMovement();
     Vector3 dest;
@@ -20,14 +24,14 @@ void HumanLooking::update(double dt) {
       human->setMovement(new AstarStrategy(human->getPosition(), dest,
                                            human->getModel()->getGraph()));
   }
+  // for (auto package : human->getPackages()) {
+  //   double distance = package->getPosition().dist(human->getPosition());
+  //   // Assuming 100 units is the detection radius
+  //   if (distance < 100.0) {
+  //     // A package is close by, change state to Found
+  //     human->changeState(new HumanFound());
+  //     return;
+  //   }
+  // }
 
-  for (auto package : human->getPackages()) {
-    double distance = package->getPosition().dist(human->getPosition());
-    // Assuming 100 units is the detection radius
-    if (distance < 100.0) {
-      // A package is close by, change state to Found
-      human->changeState(new HumanFound());
-      return;
-    }
-  }
 }

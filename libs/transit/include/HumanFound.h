@@ -6,15 +6,16 @@
 class HumanFound : public IHumanState {
  public:
   // explicit Found(Human* human) : IHumanState(human) {}
+  HumanFound(Human* human);
 
   void update(double dt) override;
 
   void notifySubscribers(Vector3 location);
 
  private:
-  void moveTowardsPackage();
+  // void moveTowardsPackage();
 
-  Package* findClosestPackage();
+  // Package* findClosestPackage();
 };
 
 #endif

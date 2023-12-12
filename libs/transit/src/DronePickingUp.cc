@@ -9,7 +9,7 @@ DronePickingUp::DronePickingUp(Drone* drone){
 
     // Change Drone attributes to characterize specific state
     this->drone->setColor("yellow");
-    this->drone->setSpeed(80.0);
+    this->drone->setSpeed(15.0);
 }
 
 void DronePickingUp::update(double dt){

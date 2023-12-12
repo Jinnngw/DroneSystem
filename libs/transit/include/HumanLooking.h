@@ -8,6 +8,7 @@ class HumanLooking : public IHumanState {
   // explicit Looking(Human* human) : IHumanState(human) {}
   HumanLooking(Human* human);
   void update(double dt) override;
+
 };
 
 #endif

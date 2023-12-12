@@ -2,62 +2,81 @@
 #include "AstarStrategy.h"
 #include "JumpDecorator.h"
 #include "HumanLooking.h"
+#include "HumanAvailable.h"
 #include "ICarSubscriber.h"
 
 
-void HumanFound::update(double dt) {
-  Package* closestPackage = findClosestPackage();
+HumanFound::HumanFound(Human* human)
+{
+    this->human = human;
+}
 
-  if (closestPackage) {
-    moveTowardsPackage();
-  } else {
-    // No package found, revert to Looking state
-    human->changeState(new HumanLooking(this->human));
-  }
+
+void HumanFound::update(double dt) {
+  // Notify ICarSubscribers
+  notifySubscribers(this->human->getPackage()->getDestination());
+  
+  //change state to available
+  human->changeState(new HumanAvailable(this->human));
+
+  std::cout << "Human has been set from Found to Available" << std::endl;
+  
 }
 
 void HumanFound::notifySubscribers(Vector3 location) {
   // Notify ICarSubscribers about the found location
   for (auto car : human->getCars()) {
-    car->notify(location);
+    car->notify(location,this->human->getPackage());
   }
 }
 
-void HumanFound::moveTowardsPackage() {
-  // Path strategy with JumpDecorator
-  IStrategy* pathStrategy = new JumpDecorator(new JumpDecorator(
-      new AstarStrategy(human->getPosition(), this->findClosestPackage()->getDestination(),
-                        human->getModel()->getGraph())));
+// void HumanFound::update(double dt) {
+//   Package* closestPackage = findClosestPackage();
 
-  // Increase speed
-  human->setSpeed(human->getSpeed() * 2);
+//   if (closestPackage) {
+//     moveTowardsPackage();
+//   } else {
+//     // No package found, revert to Looking state
+//     human->changeState(new HumanLooking(this->human));
+//   }
+// }
 
-  // Travel to package
-  pathStrategy->move(human, 1.0);
 
-  // Decrease speed back to original value
-  human->setSpeed(human->getSpeed() / 2);
+// void HumanFound::moveTowardsPackage() {
+//   // Path strategy with JumpDecorator
+//   IStrategy* pathStrategy = new JumpDecorator(new JumpDecorator(
+//       new AstarStrategy(human->getPosition(), this->findClosestPackage()->getDestination(),
+//                         human->getModel()->getGraph())));
 
-  // Notify ICarSubscribers
-  notifySubscribers(this->findClosestPackage()->getDestination());
+//   // Increase speed
+//   human->setSpeed(human->getSpeed() * 2);
 
-  // Change state back to Looking
-  human->changeState(new HumanLooking(this->human));
-}
+//   // Travel to package
+//   pathStrategy->move(human, 1.0);
 
-Package* HumanFound::findClosestPackage() {
-  // Find the closest package among available packages
-  std::vector<Package*> packages = human->getPackages();
-  Package* closestPackage = nullptr;
-  double minDistance = std::numeric_limits<double>::max();
+//   // Decrease speed back to original value
+//   human->setSpeed(human->getSpeed() / 2);
 
-  for (Package* package : packages) {
-    double distance = package->getPosition().dist(human->getPosition());
-    if (distance < minDistance) {
-      minDistance = distance;
-      closestPackage = package;
-    }
-  }
+//   // Notify ICarSubscribers
+//   notifySubscribers(this->findClosestPackage()->getDestination());
 
-  return closestPackage;
-}
+//   // Change state back to Looking
+//   human->changeState(new HumanLooking(this->human));
+// }
+
+// Package* HumanFound::findClosestPackage() {
+//   // Find the closest package among available packages
+//   std::vector<Package*> packages = human->getPackages();
+//   Package* closestPackage = nullptr;
+//   double minDistance = std::numeric_limits<double>::max();
+
+//   for (Package* package : packages) {
+//     double distance = package->getPosition().dist(human->getPosition());
+//     if (distance < minDistance) {
+//       minDistance = distance;
+//       closestPackage = package;
+//     }
+//   }
+
+//   return closestPackage;
+// }

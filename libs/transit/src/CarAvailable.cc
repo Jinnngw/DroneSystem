@@ -9,7 +9,7 @@ void CarAvailable::update(double dt){
         this->car->getNextDestination();
     }
     this->car->getToNextDestination()->move(this->car, dt);
-
+       
     // Front of car model faces the wrong way, rotate to compensate
     this->car->rotate(-M_PI / 4 + 0.01);
 

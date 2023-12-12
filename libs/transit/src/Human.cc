@@ -9,11 +9,14 @@
 
 #include "IHumanState.h"
 #include "HumanLooking.h"
+#include "HumanAvailable.h"
+#include "Package.h"
+
 
 Human::Human(JsonObject& obj) : IEntity(obj) {
   this->packages = PackageDataController::getInstance();
   // Initialize the default state
-  state = new HumanLooking(this);
+  state = new HumanAvailable(this);
 }
 
 Human::~Human() {
@@ -41,6 +44,10 @@ void Human::setMovement(IStrategy* movement){
 void Human::deleteMovement(){
   delete movement;
 }
+
+Package* Human::getPackage() {return package;}
+
+SimulationModel* Human::getModel() {return model;}
 
 std::vector<Package*> Human::getPackages() { return packages->getPackageList(); }
 

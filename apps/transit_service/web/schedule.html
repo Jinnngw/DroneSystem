@@ -181,22 +181,80 @@
 
         var humanID = 1;
         function addHuman() {
-            api.sendCommand("CreateEntity", {
-                "type": "human",
-                "name": "Human-" + humanID,
-                "mesh": "assets/model/human.glb",
-                "position": [700, 290, 400],
-                "scale": [0.005, 0.005, 0.005],
-                "rotation": [0, 0, 0, 0],
-                "direction": [1, 0, 0],
-                "speed": 10.0,
-                "radius": 1.0,
-                "start": 2.0,
-                "duration": 2.0,
-                "offset": [0, -0.5, 0]
-            });
-            humanID += 1;
-        }
+        // Generate random coordinates within the map boundaries
+        var scale = 0.75;
+        var min = { x: -2030.950927734375, y: 220.99996948242188, z: -1184.1085205078125 };
+        var max = { x: 2249.523193359375, y: 286.9197998046875, z: 1261.8768310546875 };
+
+        var randomX = (min.x + (max.x - min.x) * Math.random()) * scale
+        var randomY = (min.y + (max.y - min.y) * Math.random()) * scale
+        var randomZ = (min.z + (max.z - min.z) * Math.random()) * scale
+
+        api.sendCommand("CreateEntity", {
+            "type": "human",
+            "name": "Human-" + humanID,
+            "mesh": "assets/model/human.glb",
+            "position": [randomX, randomY, randomZ], // Set the z-coordinate to 0 or adjust based on your requirements
+            "scale": [0.005, 0.005, 0.005],
+            "rotation": [0, 0, 0, 0],
+            "direction": [1, 0, 0],
+            "speed": 20.0,
+            "radius": 1.0,
+            "start": 2.0,
+            "duration": 2.0,
+            "offset": [0, -0.5, 0]
+        });
+
+        humanID += 1;
+}
+
+
+
+
+        // function addHuman() {
+        //     api.sendCommand("CreateEntity", {
+        //         "type": "human",
+        //         "name": "Human-" + humanID,
+        //         "mesh": "assets/model/human.glb",
+        //         "position": [700, 290, 400],
+        //         "scale": [0.005, 0.005, 0.005],
+        //         "rotation": [0, 0, 0, 0],
+        //         "direction": [1, 0, 0],
+        //         "speed": 10.0,
+        //         "radius": 1.0,
+        //         "start": 2.0,
+        //         "duration": 2.0,
+        //         "offset": [0, -0.5, 0]
+        //     });
+        //     humanID += 1;
+        // }
+//         function addHuman() {
+       
+//         if (trip.length === 1) {
+//         var posX = trip[0][0];
+//         var posY = trip[0][1];
+
+//         api.sendCommand("CreateEntity", {
+//             "type": "human",
+//             "name": "Human-" + humanID,
+//             "mesh": "assets/model/human.glb",
+//             "position": [posX, posY, 0], 
+//             "scale": [0.005, 0.005, 0.005],
+//             "rotation": [0, 0, 0, 0],
+//             "direction": [1, 0, 0],
+//             "speed": 10.0,
+//             "radius": 1.0,
+//             "start": 2.0,
+//             "duration": 2.0,
+//             "offset": [0, -0.5, 0]
+//         });
+
+//         humanID += 1;
+//     } else {
+//         alert("Please select a location on the map first.");
+//     }
+// }
+
     </script>
 </body>
 

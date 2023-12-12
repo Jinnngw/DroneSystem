@@ -8,6 +8,8 @@
 #include "IHumanState.h"
 #include "IStrategy.h"
 #include "PackageDataController.h"
+#include "Package.h"
+#include "SimulationModel.h"
 
 class IHumanState;
 
@@ -33,12 +35,17 @@ class Human : public IEntity {
 
   std::vector<Package*> getPackages();
 
+  Package* getPackage();
+
+  SimulationModel* getModel();
+
   std::vector<ICarSubscriber*> getCars();
 
  private:
   IStrategy* movement = nullptr;
   IHumanState* state;
   PackageDataController* packages;
+  Package* package = nullptr;
   std::vector<ICarSubscriber*> cars;
 };
 
