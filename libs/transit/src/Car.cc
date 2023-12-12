@@ -9,11 +9,14 @@
 #include "CarPickingUp.h"
 #include "CarAvailable.h"
 #include "Package.h"
-
+#include "Human.h"
 
 Car::Car(JsonObject& obj) : IEntity(obj) {
   std::srand(static_cast<unsigned int>(std::time(0)));
   this->state = new CarAvailable(this);
+  
+  // Automatically subscribe car to human
+  Human::subscribe(this);
 }
 
 Car::~Car() {
@@ -70,12 +73,14 @@ void Car::changeState(ICarState* state) {
 }
 
 void Car::notify(Vector3 location,Package* package){
-  // NOTIFICATION THINGY STUFF HERE
-  
+
+  std::cout << "MADE IT HERE" << std::endl;
+
   //check if the state is available
    if (CarAvailable* availableState = dynamic_cast<CarAvailable*>(this->state))
    {
-       //set the car's next destination is package's location
+      std::cout << "MADE IT HERE TOO" << std::endl;
+      //set the car's next destination is package's location
       this->setNextDestination(location);
 
       //set the car's package pointer pointes to the new package.

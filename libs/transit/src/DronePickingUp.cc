@@ -2,6 +2,7 @@
 #include "DroneDelivering.h"
 #include "Package.h"
 #include "IStrategy.h"
+#include "PackageDataController.h"
 
 
 DronePickingUp::DronePickingUp(Drone* drone){
@@ -23,6 +24,10 @@ void DronePickingUp::update(double dt){
             // Clear the package location and set the package as being picked up
             this->drone->resetToPackage();
             this->drone->setPickedUp(true);
+
+            // Remove the package from the Package singleton AND the scheduled deliveries stack
+            PackageDataController::getInstance()->removePackage(this->drone->getPackage());
+            this->drone->getModel()->scheduledDeliveries.pop_front();
 
             // Change the Drone's state to Delivering
             this->drone->changeState(new DroneDelivering(this->drone));

@@ -13,11 +13,15 @@ class PackageDataController {
 
   void populatePackageData(SimulationModel* sim);
 
-  std::vector<Package*> getPackageList();
+  void addPackage(Package* package);
 
+  void removePackage(Package* package);
+
+  std::vector<Package*> getPackageList();
 
   static PackageDataController* instance;
   std::vector<Package*> packageList;
+
  private:
   // Private constructor to prevent instantiation
   PackageDataController() = default;

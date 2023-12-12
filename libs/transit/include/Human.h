@@ -10,10 +10,11 @@
 #include "PackageDataController.h"
 #include "Package.h"
 #include "SimulationModel.h"
+#include "IHumanPublisher.h"
 
 class IHumanState;
 
-class Human : public IEntity {
+class Human : public IEntity, public IHumanPublisher {
  public:
   /**
    * @brief Human are created with a name
@@ -37,16 +38,19 @@ class Human : public IEntity {
 
   Package* getPackage();
 
+  void setPackage(Package* package);
+
   SimulationModel* getModel();
 
   std::vector<ICarSubscriber*> getCars();
 
- private:
-  IStrategy* movement = nullptr;
-  IHumanState* state;
-  PackageDataController* packages;
-  Package* package = nullptr;
-  std::vector<ICarSubscriber*> cars;
+  void getNextDelivery();
+
+  private:
+    IStrategy* movement = nullptr;
+    IHumanState* state;
+    PackageDataController* packages;
+    Package* package = nullptr;
 };
 
 #endif

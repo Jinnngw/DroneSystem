@@ -43,6 +43,8 @@ class ICelebrationDecorator : public IStrategy {
   virtual bool isCompleted();
 
   virtual void celebrate(IEntity* entity, double dt) = 0;
+
+  virtual std::vector<std::vector<float>> getPath();
 };
 
 #endif  // CELEBRATION_DECORATOR_H_

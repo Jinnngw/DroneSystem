@@ -122,3 +122,7 @@ void SimulationModel::removeFromSim(int id) {
     delete entity;
   }
 }
+
+std::map<int, IEntity*> SimulationModel::getEntities(){
+  return entities;
+}

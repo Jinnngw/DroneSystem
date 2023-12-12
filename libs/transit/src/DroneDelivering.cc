@@ -12,18 +12,20 @@ DroneDelivering::DroneDelivering(Drone* drone){
     this->drone->setSpeed(30.0);
 
     // // Change altitude of route to customer
-    // PathStrategy* route = static_cast<PathStrategy*>(this->drone->getToFinalDestination());
-    // std::cout << "Route found: " << route << std::endl;
+    // PathStrategy* route = dynamic_cast<PathStrategy*>(this->drone->getToFinalDestination());
+    // std::cout << route << std::endl;
     
-    // if (route){
-    //     std::vector<std::vector<float>> path = route->getPath();
+    // std::vector<std::vector<float>> path = route->getPath();
+    // std::cout << "Route found" << std::endl;
+    
+    // if (path){
+    //     // std::vector<std::vector<float>> path = route->getPath();
     //     std::cout << "Temporary path variable assigned" << std::endl;
     //     for (int i=0;i<path.size();i++){
     //         path[i][1] += 50;
     //     }
-    //     static_cast<PathStrategy*>(this->drone->getToFinalDestination())->setPath(path);
+    //     dynamic_cast<PathStrategy*>(this->drone->getToFinalDestination())->setPath(path);
     // }
-
 
 }
 

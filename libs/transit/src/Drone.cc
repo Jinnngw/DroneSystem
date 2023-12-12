@@ -16,6 +16,7 @@
 #include "SimulationModel.h"
 
 #include "DroneAvailable.h"
+#include "PackageDataController.h"
 
 Drone::Drone(JsonObject& obj) : IEntity(obj) {
   available = true;
@@ -31,7 +32,7 @@ Drone::~Drone() {
 void Drone::getNextDelivery() {
   if (model && model->scheduledDeliveries.size() > 0) {
     package = model->scheduledDeliveries.front();
-    model->scheduledDeliveries.pop_front();
+    PackageDataController::getInstance()->addPackage(package);
 
     if (package) {
       available = false;
@@ -39,6 +40,8 @@ void Drone::getNextDelivery() {
 
       Vector3 packagePosition = package->getPosition();
       Vector3 finalDestination = package->getDestination();
+
+      // std::cout << "Drone " << packagePosition.x << std::endl;
 
       toPackage = new BeelineStrategy(position, packagePosition);
 
@@ -86,7 +89,6 @@ void Drone::getNextDelivery() {
 void Drone::update(double dt) {
   this->state->update(dt);
 }
-
 
 void Drone::changeState(IDroneState* state){
   this->state = state;

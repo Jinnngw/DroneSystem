@@ -1,4 +1,5 @@
 #include "ICelebrationDecorator.h"
+#include "PathStrategy.h"
 
 ICelebrationDecorator::ICelebrationDecorator(IStrategy* strategy, double time) {
   this->strategy = strategy;
@@ -23,3 +24,6 @@ bool ICelebrationDecorator::isCompleted() {
   return time <= 0;
 }
 
+std::vector<std::vector<float>> ICelebrationDecorator::getPath(){
+  return dynamic_cast<PathStrategy*>(strategy)->getPath();
+}

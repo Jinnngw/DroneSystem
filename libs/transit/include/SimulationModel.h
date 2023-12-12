@@ -81,6 +81,8 @@ class SimulationModel {
 
   void removeFromSim(int id);
 
+  std::map<int, IEntity*> getEntities();
+
  protected:
   IController& controller;
   std::map<int, IEntity*> entities;
