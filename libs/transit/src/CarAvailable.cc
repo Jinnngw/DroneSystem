@@ -5,7 +5,7 @@ CarAvailable::CarAvailable(Car* car){
 }
 
 void CarAvailable::update(double dt){
-    if (!this->car->getToNextDestination()) {
+    if (!this->car->getToNextDestination()){
         this->car->getNextDestination();
     }
     this->car->getToNextDestination()->move(this->car, dt);
@@ -18,6 +18,8 @@ void CarAvailable::update(double dt){
         this->car->clearNextDestination();
         this->car->getNextDestination();
     }
+
+    // State changes when car receives notification
 }
 
 // Notify function here when implmementing notifications from Humans

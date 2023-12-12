@@ -18,13 +18,14 @@ void HumanAvailable::update(double dt){
   // If human has a package to get to
   if (human->getPackage()){
     this->human->changeState(new HumanLooking(this->human));
-    std::cout << "Human has switched from Available to Looking" << std::endl;
+    // std::cout << "Human has switched from Available to Looking" << std::endl;
   }
 
   // Otherwise, go to random destination
   else {
     if (human->getMovement() && !human->getMovement()->isCompleted()){
       human->getMovement()->move(human, dt);
+      human->updateSubscribers();
     }
     else{      
       // Delete any previously-existing route

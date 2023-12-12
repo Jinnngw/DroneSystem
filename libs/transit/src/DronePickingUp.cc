@@ -1,3 +1,4 @@
+#include "DroneAvailable.h"
 #include "DronePickingUp.h"
 #include "DroneDelivering.h"
 #include "Package.h"
@@ -14,8 +15,17 @@ DronePickingUp::DronePickingUp(Drone* drone){
 }
 
 void DronePickingUp::update(double dt){
+    // Check if package still exists (may have been stolen)
+    bool packageExists = false;
+    std::vector<Package*> packages = PackageDataController::getInstance()->getPackageList();
+    for (int i=0;i<packages.size();i++){
+        if (packages.at(i) == this->drone->getPackage()){
+            packageExists = true;
+        }
+    }
+
     // If there is a package to get to,
-    if (this->drone->getToPackage()) {
+    if (this->drone->getToPackage() && packageExists) {
         // Move the drone some distance towards the package location
         this->drone->getToPackage()->move(this->drone, dt);
 
@@ -35,5 +45,8 @@ void DronePickingUp::update(double dt){
             // Terminal output for easier debugging
             std::cout << "Drone has been set from PickingUp to Delivering" << std::endl;
         }
+    }
+    else{
+        this->drone->changeState(new DroneAvailable(this->drone));
     }
 }

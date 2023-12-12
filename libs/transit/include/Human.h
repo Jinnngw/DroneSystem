@@ -50,6 +50,9 @@ class Human : public IEntity, public IHumanPublisher {
   void subscribe(ICarSubscriber* observer);
   void unsubscribe(ICarSubscriber* observer);
   void notifySubscribers(Vector3 location);
+  void updateSubscribers();
+
+  void addFoundPackage(Package* package);
 
 
   private:
@@ -57,6 +60,7 @@ class Human : public IEntity, public IHumanPublisher {
     IHumanState* state;
     PackageDataController* packages;
     Package* package = nullptr;
+    std::vector<Package*> foundPackages;
 };
 
 #endif

@@ -71,25 +71,22 @@ void Car::changeState(ICarState* state) {
 
 void Car::notify(Vector3 location,Package* package){
 
-  std::cout << "MADE IT HERE" << std::endl;
-
   //check if the state is available
    if (CarAvailable* availableState = dynamic_cast<CarAvailable*>(this->state))
    {
-      std::cout << "MADE IT HERE TOO" << std::endl;
-      //set the car's next destination is package's location
+      //set the car's next destination to package's location
       this->setNextDestination(location);
 
       //set the car's package pointer pointes to the new package.
       this->setPackage(package);
 
       //change the car's state from available to picking up
-      this->changeState(new CarPickingUp());
+      this->changeState(new CarPickingUp(this));
 
-      std::cout << "car receives the package's location" << std::endl;
+      // std::cout << "car receives the package's location" << std::endl;
 
-      std::cout << "car changes the state from available to pickingup" << std::endl;
+      // std::cout << "car changes the state from available to pickingup" << std::endl;
+
+      // std::cout << "Package pointer assigned to car is " << this->package << std::endl;
    }
- 
-  // std::cout << "STUFF GOES HERE" << std::endl;
 }

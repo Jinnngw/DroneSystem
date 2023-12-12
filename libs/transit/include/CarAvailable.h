@@ -2,6 +2,7 @@
 #define CAR_AVAILABLE_H_
 
 #include "ICarState.h"
+#include "Car.h"
 
 class CarAvailable : public ICarState{
     public:

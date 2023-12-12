@@ -70,7 +70,7 @@
     </div>
     <div><input type="button" value="Schedule Delivery" onclick="schedule()"></div>
     <div><input type="button" value="Add Human" onclick="addHuman()" style="margin-top: 10px;"></div>
-
+    <div><input type="button" value="Add Car" onclick="addCar()" style="margin-top: 10px;"></div>
     <div id="nameError"></div>
 
     <script>
@@ -198,7 +198,7 @@
             "scale": [0.005, 0.005, 0.005],
             "rotation": [0, 0, 0, 0],
             "direction": [1, 0, 0],
-            "speed": 20.0,
+            "speed": 30.0,
             "radius": 1.0,
             "start": 2.0,
             "duration": 2.0,
@@ -206,6 +206,33 @@
         });
 
         humanID += 1;
+        
+}
+
+        var CarID = 1;
+        function addCar() {
+        // Generate random coordinates within the map boundaries
+        var scale = 1;
+        var min = { x: -2030.950927734375, y: 220.99996948242188, z: -1184.1085205078125 };
+        var max = { x: 2249.523193359375, y: 286.9197998046875, z: 1261.8768310546875 };
+
+        var randomX = (min.x + (max.x - min.x) * Math.random()) * scale
+        var randomY = (min.y + (max.y - min.y) * Math.random()) * scale
+        var randomZ = (min.z + (max.z - min.z) * Math.random()) * scale
+
+        api.sendCommand("CreateEntity", {
+            "type": "car",
+            "name": "Car-" + CarID,
+            "mesh": "assets/model/car2.glb",
+            "position": [randomX, randomY, randomZ], // Set the z-coordinate to 0 or adjust based on your requirements
+            "scale": [1, 1, 1],
+            "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 50.0,
+            "offset": [0, 0.6, 0]
+        });
+
+        CarID += 1;
 }
 
 

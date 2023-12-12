@@ -63,12 +63,24 @@ void Human::getNextDelivery() {
   // std::cout << model->scheduledDeliveries.size() << std::endl;
 
   if (model && PackageDataController::getInstance()->packageList.size() > 0) {
-    // Get the package from the singleton
-    package = PackageDataController::getInstance()->getPackageList()[0];
+    // If the list of found packages is nonempty
+    if (this->foundPackages.size() > 0){
+      // Search through package list in singleton until new package found
+      for (Package* singletonPackage : PackageDataController::getInstance()->getPackageList()){
+        for (Package* foundPackage : this->foundPackages){
+          if (singletonPackage != foundPackage){
+            this->package = singletonPackage;
+          }
+        }
+      }
+    }
+    // Otherwise, all packages are new, pick the first one
+    else{
+      package = PackageDataController::getInstance()->getPackageList()[0];
+    }
 
-    std::cout << package << std::endl;
 
-    // If a package was grabbed from the stack,
+    // If a package was grabbed from the package singleton,
     if (package) {
       // get the package's position
       Vector3 packagePosition = package->getPosition();
@@ -86,6 +98,16 @@ void Human::getNextDelivery() {
 }
 
 void Human::subscribe(ICarSubscriber* observer){
+  // Check if car is already subscribed to Human
+  for (ICarSubscriber* car : cars){
+    Car* temp = dynamic_cast<Car*>(car);
+    if (temp->getId() == dynamic_cast<Car*>(observer)->getId()){
+      return;
+    }
+  }
+
+  // By this point car is not yet subscribed to Human, subscribe it
+  // std::cout << "Subscribing " << dynamic_cast<Car*>(observer)->getName() << " to " << this->getName() << std::endl;
   this->cars.push_back(observer);
 }
 
@@ -93,6 +115,7 @@ void Human::unsubscribe(ICarSubscriber* observer){
   for (int i=0;i<this->cars.size();i++){
     if (cars[i] = observer){
       this->cars.erase(cars.begin() + i);
+      // std::cout << "Unsubscribing " << dynamic_cast<Car*>(observer)->getName() << " from " << this->getName() << std::endl;
       break;
     }
   }
@@ -103,4 +126,32 @@ void Human::notifySubscribers(Vector3 location) {
   for (auto car : cars) {
     car->notify(location, this->getPackage());
   }
+
+  std::cout << this->getName() << " notified " << cars.size() << " cars" << std::endl;
+}
+
+// Updates cars subscribed to Human depending on distance from human
+void Human::updateSubscribers(){
+  // Get map of all entities in model
+  std::map<int, IEntity*> entities = model->getEntities();
+  float distThreshold = 3000;
+
+  // Unsubscribe all cars that are too far away from human
+  for (ICarSubscriber* car : cars){
+    if (dynamic_cast<Car*>(car)->getPosition().dist(this->getPosition()) > distThreshold){
+      this->unsubscribe(car);
+    }
+  }
+
+  // Subscribe all new cars that are close enough to human
+  for (int i=0;i<entities.size();i++){
+    if (entities[i]->getName().at(0) == 'C' && entities[i]->getPosition().dist(this->getPosition()) <= distThreshold){
+      this->subscribe(dynamic_cast<Car*>(entities[i]));
+    }
+  }
+
+}
+
+void Human::addFoundPackage(Package* package){
+  this->foundPackages.push_back(package);
 }
