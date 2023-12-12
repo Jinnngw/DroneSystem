@@ -62,8 +62,9 @@ void Human::getNextDelivery() {
 
   // std::cout << model->scheduledDeliveries.size() << std::endl;
 
+  // If the model exists and there is at least one package in the package list singleton,
   if (model && PackageDataController::getInstance()->packageList.size() > 0) {
-    // If the list of found packages is nonempty
+    // If the list of already found packages is nonempty
     if (this->foundPackages.size() > 0){
       // Search through package list in singleton until new package found
       for (Package* singletonPackage : PackageDataController::getInstance()->getPackageList()){

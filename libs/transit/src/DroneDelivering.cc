@@ -17,12 +17,11 @@ void DroneDelivering::update(double dt){
     // If the drone does not have a package to get to but does still have
     // a final destination to get to from an already picked-up package,
     if (this->drone->getToFinalDestination()) {    
-
         // std::cout << "before move in delivering" << std::endl;
 
         // Move the drone towards the final destination using some IStrategy
         this->drone->getToFinalDestination()->move(this->drone, dt);
-        
+            
         // std::cout << "after move in delivering" << std::endl;
 
         // If the drone has a package and it has picked it up,

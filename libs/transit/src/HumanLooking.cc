@@ -26,6 +26,9 @@ void HumanLooking::update(double dt) {
     this->human->updateSubscribers();
     this->human->notifySubscribers(this->human->getPackage()->getPosition());
 
+    // Add found/already stolen package to list of found packages
+    this->human->addFoundPackage(this->human->getPackage());
+
     // Delete package from package singleton
     PackageDataController::getInstance()->removePackage(this->human->getPackage());
 
@@ -45,8 +48,9 @@ void HumanLooking::update(double dt) {
                                           human->getModel()->getGraph()));
     }
 
+    // Change Human's state to Available
     human->changeState(new HumanAvailable(this->human));
-    // std::cout << "Human has been set from Looking to Available" << std::endl;
+    std::cout << "Human has been set from Looking to Available" << std::endl;
   }
   // Otherwise, if the package still exists,
   else if (packageExists){
@@ -77,6 +81,7 @@ void HumanLooking::update(double dt) {
 
     // Change state
     this->human->changeState(new HumanAvailable(this->human));
+    std::cout << "Human has been set from Looking to Available (package no longer exists)" << std::endl;
   }
 
   // //if human has not yet gotten to the package's destination

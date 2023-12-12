@@ -15,10 +15,12 @@ void HumanAvailable::update(double dt){
   // Get next package (null if no package)
   this->human->getNextDelivery();
 
+  // std::cout << this->human->getPackage() << std::endl;
+
   // If human has a package to get to
   if (human->getPackage()){
     this->human->changeState(new HumanLooking(this->human));
-    // std::cout << "Human has switched from Available to Looking" << std::endl;
+    std::cout << "Human has switched from Available to Looking" << std::endl;
   }
 
   // Otherwise, go to random destination
@@ -27,9 +29,10 @@ void HumanAvailable::update(double dt){
       human->getMovement()->move(human, dt);
       human->updateSubscribers();
     }
-    else{      
+    else{
       // Delete any previously-existing route
       if (human->getMovement()) human->deleteMovement();
+
       // Define new destination
       Vector3 dest;
       dest.x = ((static_cast<double>(rand())) / RAND_MAX) * (2900) - 1400;

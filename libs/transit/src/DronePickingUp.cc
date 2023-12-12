@@ -24,7 +24,7 @@ void DronePickingUp::update(double dt){
         }
     }
 
-    // If there is a package to get to,
+    // If drone has a package to get to,
     if (this->drone->getToPackage() && packageExists) {
         // Move the drone some distance towards the package location
         this->drone->getToPackage()->move(this->drone, dt);
@@ -46,7 +46,9 @@ void DronePickingUp::update(double dt){
             std::cout << "Drone has been set from PickingUp to Delivering" << std::endl;
         }
     }
+    // Otherwise, package has been stolen, change state Available
     else{
+        this->drone->getModel()->scheduledDeliveries.pop_front();
         this->drone->changeState(new DroneAvailable(this->drone));
     }
 }
