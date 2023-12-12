@@ -1,6 +1,6 @@
 #include "JumpDecorator.h"
 
-JumpDecorator::JumpDecorator(IStrategy* strategy, double time,
+JumpDecorator::JumpDecorator(PathStrategy* strategy, double time,
   double jumpHeight)
   : ICelebrationDecorator(strategy, time), jumpHeight(jumpHeight) {}
 

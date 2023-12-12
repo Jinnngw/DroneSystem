@@ -15,7 +15,9 @@ class IStrategy {
   * @param entity Entity to move
   * @param dt Delta Time
   */
+  virtual void moveAltitude(IEntity* entity, double dt, float altitudeModifier=0.0) = 0;
   virtual void move(IEntity* entity, double dt) = 0;
+  
 
   /**
    * @brief Check if the trip is completed

@@ -11,6 +11,7 @@
 #include "Package.h"
 #include "SimulationModel.h"
 #include "IHumanPublisher.h"
+#include "math/vector3.h"
 
 class IHumanState;
 
@@ -45,6 +46,11 @@ class Human : public IEntity, public IHumanPublisher {
   std::vector<ICarSubscriber*> getCars();
 
   void getNextDelivery();
+
+  void subscribe(ICarSubscriber* observer);
+  void unsubscribe(ICarSubscriber* observer);
+  void notifySubscribers(Vector3 location);
+
 
   private:
     IStrategy* movement = nullptr;

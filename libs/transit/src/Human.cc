@@ -97,3 +97,10 @@ void Human::unsubscribe(ICarSubscriber* observer){
     }
   }
 }
+
+void Human::notifySubscribers(Vector3 location) {
+  // Notify ICarSubscribers about the found location
+  for (auto car : cars) {
+    car->notify(location, this->getPackage());
+  }
+}

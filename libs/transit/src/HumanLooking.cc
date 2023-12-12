@@ -16,7 +16,7 @@ void HumanLooking::update(double dt) {
     if (human->getMovement()) human->deleteMovement();
 
     // Notify cars
-    notifySubscribers(this->human->getPackage()->getPosition());
+    this->human->notifySubscribers(this->human->getPackage()->getPosition());
 
     // Delete package from package singleton
     PackageDataController::getInstance()->removePackage(this->human->getPackage());
@@ -42,9 +42,3 @@ void HumanLooking::update(double dt) {
   }
 }
 
-void HumanLooking::notifySubscribers(Vector3 location) {
-  // Notify ICarSubscribers about the found location
-  for (auto car : human->getCars()) {
-    car->notify(location, this->human->getPackage());
-  }
-}

@@ -14,9 +14,6 @@
 Car::Car(JsonObject& obj) : IEntity(obj) {
   std::srand(static_cast<unsigned int>(std::time(0)));
   this->state = new CarAvailable(this);
-  
-  // Automatically subscribe car to human
-  Human::subscribe(this);
 }
 
 Car::~Car() {

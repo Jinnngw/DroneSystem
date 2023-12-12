@@ -2,14 +2,15 @@
 #define CELEBRATION_DECORATOR_H_
 
 #include "IStrategy.h"
+#include "PathStrategy.h"
 
 /**
  * @brief this class inhertis from the IStrategy class and is represents
  * a celebration decorator where the entity will celebrate according to it.
  */
-class ICelebrationDecorator : public IStrategy {
+class ICelebrationDecorator : public PathStrategy {
  protected:
-  IStrategy* strategy = nullptr;
+  PathStrategy* strategy = nullptr;
   float time = 0;
 
  public:
@@ -19,7 +20,7 @@ class ICelebrationDecorator : public IStrategy {
    * @param[in] strategy the strategy to decorate onto
    * @param[in] time how long to celebrate
    */
-  ICelebrationDecorator(IStrategy* strategy, double time = 4);
+  ICelebrationDecorator(PathStrategy* strategy, double time = 4);
 
 
   /**

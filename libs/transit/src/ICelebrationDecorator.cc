@@ -1,7 +1,7 @@
 #include "ICelebrationDecorator.h"
 #include "PathStrategy.h"
 
-ICelebrationDecorator::ICelebrationDecorator(IStrategy* strategy, double time) {
+ICelebrationDecorator::ICelebrationDecorator(PathStrategy* strategy, double time) {
   this->strategy = strategy;
   this->time = time;
 }

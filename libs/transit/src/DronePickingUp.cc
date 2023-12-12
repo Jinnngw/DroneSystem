@@ -18,7 +18,7 @@ void DronePickingUp::update(double dt){
     if (this->drone->getToPackage()) {
         // Move the drone some distance towards the package location
         this->drone->getToPackage()->move(this->drone, dt);
-        
+
         // If the drone has reached the package location,
         if (this->drone->getToPackage()->isCompleted()) {
             // Clear the package location and set the package as being picked up

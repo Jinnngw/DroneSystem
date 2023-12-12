@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "ICarSubscriber.h"
+#include "math/vector3.h"
 
 /**
  * @class IHumanPublisher
@@ -32,8 +33,10 @@ class IHumanPublisher {
 //    */
 //   virtual bool notifySubscribers(std::string context) = 0;
 
- protected:
-  static std::vector<ICarSubscriber*> cars;
+  virtual void notifySubscribers(Vector3 location) = 0;
+
+  protected:
+    std::vector<ICarSubscriber*> cars;
 };
 
 #endif

@@ -5,6 +5,7 @@
 
 #include "IEntity.h"
 #include "IStrategy.h"
+#include "PathStrategy.h"
 #include "math/vector3.h"
 
 #include "IDroneState.h"
@@ -64,7 +65,7 @@ class Drone : public IEntity {
   bool getPickedUp();
   Package* getPackage();
   IStrategy* getToPackage();
-  IStrategy* getToFinalDestination();
+  PathStrategy* getToFinalDestination();
 
   void resetToPackage();
   void resetToFinalDestination();
@@ -78,7 +79,7 @@ class Drone : public IEntity {
   bool pickedUp = false;
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
-  IStrategy* toFinalDestination = nullptr;
+  PathStrategy* toFinalDestination = nullptr;
   IDroneState* state;
 };
 

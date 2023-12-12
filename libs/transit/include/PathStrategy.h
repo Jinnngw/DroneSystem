@@ -26,7 +26,9 @@ class PathStrategy : public IStrategy {
    * @param entity Entity to move
    * @param dt Delta Time
    */
+  virtual void moveAltitude(IEntity* entity, double dt, float altitudeModifier);
   virtual void move(IEntity* entity, double dt);
+  
 
   /**
    * @brief Check if the trip is completed by seeing if index 

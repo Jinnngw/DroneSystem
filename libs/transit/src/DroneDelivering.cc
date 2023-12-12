@@ -11,30 +11,19 @@ DroneDelivering::DroneDelivering(Drone* drone){
     this->drone->setColor("red");
     this->drone->setSpeed(30.0);
 
-    // // Change altitude of route to customer
-    // PathStrategy* route = dynamic_cast<PathStrategy*>(this->drone->getToFinalDestination());
-    // std::cout << route << std::endl;
-    
-    // std::vector<std::vector<float>> path = route->getPath();
-    // std::cout << "Route found" << std::endl;
-    
-    // if (path){
-    //     // std::vector<std::vector<float>> path = route->getPath();
-    //     std::cout << "Temporary path variable assigned" << std::endl;
-    //     for (int i=0;i<path.size();i++){
-    //         path[i][1] += 50;
-    //     }
-    //     dynamic_cast<PathStrategy*>(this->drone->getToFinalDestination())->setPath(path);
-    // }
-
 }
 
 void DroneDelivering::update(double dt){
     // If the drone does not have a package to get to but does still have
     // a final destination to get to from an already picked-up package,
-    if (this->drone->getToFinalDestination()) {
+    if (this->drone->getToFinalDestination()) {    
+
+        // std::cout << "before move in delivering" << std::endl;
+
         // Move the drone towards the final destination using some IStrategy
         this->drone->getToFinalDestination()->move(this->drone, dt);
+        
+        // std::cout << "after move in delivering" << std::endl;
 
         // If the drone has a package and it has picked it up,
         if (this->drone->getPackage() && this->drone->getPickedUp()) {

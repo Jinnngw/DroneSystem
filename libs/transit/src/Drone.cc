@@ -110,7 +110,7 @@ IStrategy* Drone::getToPackage(){
   return this->toPackage;
 }
 
-IStrategy* Drone::getToFinalDestination(){
+PathStrategy* Drone::getToFinalDestination(){
   return this->toFinalDestination;
 }
 

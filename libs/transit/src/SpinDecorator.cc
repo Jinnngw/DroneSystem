@@ -1,6 +1,6 @@
 #include "SpinDecorator.h"
 
-SpinDecorator::SpinDecorator(IStrategy* strategy, double time, double spinSpeed)
+SpinDecorator::SpinDecorator(PathStrategy* strategy, double time, double spinSpeed)
   : ICelebrationDecorator(strategy, time), spinSpeed(spinSpeed) {}
 
 

@@ -16,7 +16,7 @@ class JumpDecorator : public ICelebrationDecorator {
    * @param[in] time how long to celebrate
    * @param[in] jumpHeight how far up to jump
    */
-  JumpDecorator(IStrategy* strategy, double time = 4, double jumpHeight = 10);
+  JumpDecorator(PathStrategy* strategy, double time = 4, double jumpHeight = 10);
 
   /**
    * @brief Make the entity celebrate with the jump behavior.
