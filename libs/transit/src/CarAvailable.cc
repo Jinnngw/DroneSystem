@@ -1,11 +1,24 @@
+/**
+ * @file CarAvailable.cc
+ * @brief Implementation of the CarAvailable state class, representing an available state of the Car.
+ */
+
 #include "CarAvailable.h"
 #include "CarPickingUp.h"
 
+/**
+ * @brief Constructor for the CarAvailable state.
+ * @param car Pointer to the Car associated with this state.
+ */
 CarAvailable::CarAvailable(Car* car){
     this->car = car;
     this->car->setColor("white");
 }
 
+/**
+ * @brief Updates the CarAvailable state.
+ * @param dt Time step for the update.
+ */
 void CarAvailable::update(double dt){
     if (!this->car->getToNextDestination()){
         this->car->getNextDestination();
@@ -23,6 +36,11 @@ void CarAvailable::update(double dt){
     // State changes when car receives notification
 }
 
+/**
+ * @brief Notifies the CarAvailable state about a package's location.
+ * @param location The location of the package.
+ * @param package Pointer to the package.
+ */
 void CarAvailable::notify(Vector3 location, Package* package){
 
     // std::cout << "car receives the package's location" << std::endl;

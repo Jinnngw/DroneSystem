@@ -1,8 +1,17 @@
+/**
+ * @file CarPickingUp.cc
+ * @brief Implementation of the CarPickingUp state class.
+ */
+
 #include "CarPickingUp.h"
 #include "CarSuccess.h"
 #include "CarAvailable.h"
 #include "PackageDataController.h"
 
+/**
+ * @brief Constructor for CarPickingUp state.
+ * @param car Pointer to the Car associated with this state.
+ */
 CarPickingUp::CarPickingUp(Car* car){
     this->car = car;
     this->car->setColor("red");
@@ -11,6 +20,10 @@ CarPickingUp::CarPickingUp(Car* car){
     this->car->setSpeed(this->car->getSpeed() + 20.0);
 }
 
+/**
+ * @brief Updates the state of the Car when it's picking up a package.
+ * @param dt Time step for the update.
+ */
 void CarPickingUp::update(double dt){
     // Check if package still exists (may have already been stolen by another car)
     bool packageExists = false;
@@ -43,6 +56,11 @@ void CarPickingUp::update(double dt){
     }
 }
 
+/**
+ * @brief Handle notifications received by the Car in the PickingUp state.
+ * @param location Location of the package.
+ * @param package Pointer to the package.
+ */
 void CarPickingUp::notify(Vector3 location, Package* package){
 
 }

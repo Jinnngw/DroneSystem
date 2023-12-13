@@ -1,6 +1,17 @@
+/**
+ * @file DfsStrategy.cc
+ * @brief Implements the depth-first search strategy for pathfinding.
+ */
+
 #include "DfsStrategy.h"
 #include "routing/depth_first_search.h"
 
+/**
+ * @brief Constructor for DfsStrategy.
+ * @param pos Starting position.
+ * @param des Destination position.
+ * @param g Pointer to the graph used for DFS routing.
+ */
 DfsStrategy::DfsStrategy(Vector3 pos, Vector3 des,
                          const routing::IGraph* g) {
   std::vector<float> start = {
