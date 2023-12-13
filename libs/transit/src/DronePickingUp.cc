@@ -24,6 +24,8 @@ void DronePickingUp::update(double dt){
         }
     }
 
+    std::cout << "packageExists is " << packageExists << std::endl;
+
     // If drone has a package to get to,
     if (this->drone->getToPackage() && packageExists) {
         // Move the drone some distance towards the package location
@@ -31,9 +33,10 @@ void DronePickingUp::update(double dt){
 
         // If the drone has reached the package location,
         if (this->drone->getToPackage()->isCompleted()) {
+
             // Clear the package location and set the package as being picked up
             this->drone->resetToPackage();
-            this->drone->setPickedUp(true);
+            this->drone->setPickedUp(true);            
 
             // Remove the package from the Package singleton
             PackageDataController::getInstance()->removePackage(this->drone->getPackage());
@@ -48,8 +51,8 @@ void DronePickingUp::update(double dt){
     // Otherwise, package has been stolen, change state to Available
     else{
         // this->drone->getModel()->scheduledDeliveries.pop_front();
-
         this->drone->resetToPackage();
         this->drone->changeState(new DroneAvailable(this->drone));
+        std::cout << "Drone set from PickingUp to Available (package no longer exists)" << std::endl;
     }
 }

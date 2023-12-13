@@ -23,7 +23,10 @@ void CarSuccess::update(double dt){
 
     // Randomly choose a new destination (getNextDestination)
     this->car->getNextDestination();
-    
+
     // Change state of car back to Available
     this->car->changeState(new CarAvailable(this->car));
+
+    // Print statement
+    std::cout << "Car state changes from success to available" << std::endl;
 }

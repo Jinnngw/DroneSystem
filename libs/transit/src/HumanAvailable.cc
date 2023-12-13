@@ -9,6 +9,7 @@
 
 HumanAvailable::HumanAvailable(Human* human){
     this->human = human;
+    std::cout << "Human Available state instantiated" << std::endl;
 }
 
 void HumanAvailable::update(double dt){

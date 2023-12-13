@@ -2,9 +2,13 @@
 
 CarAvailable::CarAvailable(Car* car){
     this->car = car;
+    this->car->setColor("white");
+
+    std::cout << "Car set to white (available)" << std::endl;
 }
 
 void CarAvailable::update(double dt){
+    std::cout << "CARAVAILABLE 1" << std::endl;
     if (!this->car->getToNextDestination()){
         this->car->getNextDestination();
     }
@@ -18,8 +22,6 @@ void CarAvailable::update(double dt){
         this->car->clearNextDestination();
         this->car->getNextDestination();
     }
-
     // State changes when car receives notification
+    std::cout << "CARAVAILABLE 2" << std::endl;
 }
-
-// Notify function here when implmementing notifications from Humans

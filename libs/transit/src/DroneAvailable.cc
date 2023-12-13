@@ -9,9 +9,14 @@ DroneAvailable::DroneAvailable(Drone* drone){
     // Change Drone attributes to characterize specific state
     this->drone->setColor("green");
     this->drone->setSpeed(0.0);
+
+    std::cout << "Drone available status initialized" << std::endl;
+
 }
 
 void DroneAvailable::update(double dt){
+    std::cout << "Update for available state of drone" << std::endl;
+
     // If the drone is available,
     if (this-drone->getAvailable()){
         // then see if there is a new delivery and, if so, assign it to the Drone

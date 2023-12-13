@@ -80,6 +80,7 @@ void Human::getNextDelivery() {
       package = PackageDataController::getInstance()->getPackageList()[0];
     }
 
+    // std::cout << "Value of package pointer is " << this->package << std::endl;
 
     // If a package was grabbed from the package singleton,
     if (package) {
