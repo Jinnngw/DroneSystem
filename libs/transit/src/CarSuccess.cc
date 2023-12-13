@@ -12,8 +12,16 @@ void CarSuccess::update(double dt){
     PackageDataController::getInstance()->removePackage(this->car->getPackage());
 
     // Delete the package from the SimulationModel
+        // Two Cars in the Success state may try to delete the same package, so
+        // there's a chance one of the Cars tries to remove an already-removed
+        // entity from SimulationModel
     SimulationModel* model = this->car->getModel();
-    model->removeFromSim(this->car->getPackage()->getId());
+    try{
+        model->removeFromSim(this->car->getPackage()->getId());
+    }
+    catch(...){
+        std::cout << "Car in Success state tried deleting nonexistent package" << std::endl;
+    }
 
     // Reset package assigned to Car
     this->car->setPackage(nullptr);

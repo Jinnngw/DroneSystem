@@ -70,6 +70,6 @@ void Car::changeState(ICarState* state) {
 }
 
 void Car::notify(Vector3 location, Package* package){
-  std::cout << "NOTIFY IN CAR" << std::endl;
+  // std::cout << "NOTIFY IN CAR" << std::endl;
   this->state->notify(location, package);
 }

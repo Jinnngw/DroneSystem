@@ -9,7 +9,6 @@
 
 HumanAvailable::HumanAvailable(Human* human){
     this->human = human;
-    std::cout << "Human Available state instantiated" << std::endl;
 }
 
 void HumanAvailable::update(double dt){
@@ -20,6 +19,7 @@ void HumanAvailable::update(double dt){
 
   // If human has a package to get to
   if (human->getPackage()){
+    // Change state to Looking
     this->human->changeState(new HumanLooking(this->human));
     std::cout << "Human has switched from Available to Looking" << std::endl;
   }

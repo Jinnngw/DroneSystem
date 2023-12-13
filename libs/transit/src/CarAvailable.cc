@@ -4,8 +4,6 @@
 CarAvailable::CarAvailable(Car* car){
     this->car = car;
     this->car->setColor("white");
-
-    std::cout << "Car set to white (available)" << std::endl;
 }
 
 void CarAvailable::update(double dt){
@@ -26,7 +24,6 @@ void CarAvailable::update(double dt){
 }
 
 void CarAvailable::notify(Vector3 location, Package* package){
-    std::cout << "NOTIFY FOR CARAVAILABLE" << std::endl;
 
     // std::cout << "car receives the package's location" << std::endl;
 
