@@ -97,7 +97,7 @@ void SimulationModel::update(double dt) {
     entity->update(dt);
     controller.updateEntity(*entity);
 
-    std::cout << entity->getName() << " has been updated" << std::endl;
+    // std::cout << entity->getName() << " has been updated" << std::endl;
   }
   for (int id : removed) {
     removeFromSim(id);

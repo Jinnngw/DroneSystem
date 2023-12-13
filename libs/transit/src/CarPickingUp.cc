@@ -26,7 +26,7 @@ void CarPickingUp::update(double dt){
         this->car->deleteNextDestination();
         this->car->clearNextDestination();
 
-        std::cout << "Car has get to package's destination" << std::endl;
+        // std::cout << "Car has get to package's destination" << std::endl;
 
         this->car->changeState(new CarSuccess(this->car));
         std::cout << "Car state changes from pickingup to success" << std::endl;
@@ -41,4 +41,8 @@ void CarPickingUp::update(double dt){
         this->car->changeState(new CarAvailable(this->car));
         this->car->setSpeed(this->car->getSpeed() - 20.0);
     }
+}
+
+void CarPickingUp::notify(Vector3 location, Package* package){
+
 }

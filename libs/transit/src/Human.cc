@@ -86,7 +86,7 @@ void Human::getNextDelivery() {
     if (package) {
       // get the package's position
       Vector3 packagePosition = package->getPosition();
-      std::cout << "Human " << packagePosition.x << std::endl;
+      // std::cout << "Human " << packagePosition.x << std::endl;
 
       // Set the route for Human to a strategy with package location as destination
       movement =
@@ -147,7 +147,13 @@ void Human::updateSubscribers(){
 
   // Subscribe all new cars that are close enough to human
   for (int i=0;i<entities.size();i++){
-    if (entities[i]->getName().at(0) == 'C' && entities[i]->getPosition().dist(this->getPosition()) <= distThreshold){
+    // If... (see side comments)
+    if (entities.count(i) > 0 &&                 // Key of the entity still exists (need to check because removing entities from sim doesn't update the keys (indices))
+        entities[i]->getName().size() >= 3 &&    // Name of entity is greater than length of "Car"
+        entities[i]->getName().at(0) == 'C' &&   // First three characters of entity are "Car"
+        entities[i]->getName().at(1) == 'a' && 
+        entities[i]->getName().at(2) == 'r' && 
+        entities[i]->getPosition().dist(this->getPosition()) <= distThreshold){
       this->subscribe(dynamic_cast<Car*>(entities[i]));
     }
   }

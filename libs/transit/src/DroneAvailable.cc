@@ -10,12 +10,10 @@ DroneAvailable::DroneAvailable(Drone* drone){
     this->drone->setColor("green");
     this->drone->setSpeed(0.0);
 
-    std::cout << "Drone available status initialized" << std::endl;
-
 }
 
 void DroneAvailable::update(double dt){
-    std::cout << "Update for available state of drone" << std::endl;
+    // std::cout << "Update for available state of drone" << std::endl;
 
     // If the drone is available,
     if (this-drone->getAvailable()){

@@ -14,6 +14,7 @@ class CarSuccess : public ICarState{
          * @param dt Delta time (type: double)
         */
         void update(double dt);
+        void notify(Vector3 location, Package* package);
 };
 
 #endif // CAR_SUCCESS_H_

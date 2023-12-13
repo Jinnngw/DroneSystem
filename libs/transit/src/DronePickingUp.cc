@@ -24,8 +24,6 @@ void DronePickingUp::update(double dt){
         }
     }
 
-    std::cout << "packageExists is " << packageExists << std::endl;
-
     // If drone has a package to get to,
     if (this->drone->getToPackage() && packageExists) {
         // Move the drone some distance towards the package location

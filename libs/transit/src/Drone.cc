@@ -30,7 +30,7 @@ Drone::~Drone() {
 }
 
 void Drone::getNextDelivery() {
-  std::cout << "about to pop front" << std::endl;
+  
   if (model && model->scheduledDeliveries.size() > 0) {
     package = model->scheduledDeliveries.front();
     PackageDataController::getInstance()->addPackage(package);

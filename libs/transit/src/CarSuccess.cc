@@ -12,7 +12,7 @@ void CarSuccess::update(double dt){
     PackageDataController::getInstance()->removePackage(this->car->getPackage());
 
     // Delete the package from the SimulationModel
-    SimulationModel* model = this->car->getPackage()->getModel();
+    SimulationModel* model = this->car->getModel();
     model->removeFromSim(this->car->getPackage()->getId());
 
     // Reset package assigned to Car
@@ -29,4 +29,8 @@ void CarSuccess::update(double dt){
 
     // Print statement
     std::cout << "Car state changes from success to available" << std::endl;
+}
+
+void CarSuccess::notify(Vector3 location, Package* package){
+
 }
