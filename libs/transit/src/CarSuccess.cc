@@ -1,12 +1,25 @@
+/**
+ * @file CarSuccess.cc
+ * @brief Implementation of the CarSuccess state class.
+ */
+
 #include "CarSuccess.h"
 #include "CarAvailable.h"
 #include "SimulationModel.h"
 #include "PackageDataController.h"
 
+/**
+ * @brief Constructor for CarSuccess state.
+ * @param car Pointer to the Car associated with this state.
+ */
 CarSuccess::CarSuccess(Car* car){
     this->car = car;
 }
 
+/**
+ * @brief Updates the state of the Car after successful package delivery.
+ * @param dt Time step for the update.
+ */
 void CarSuccess::update(double dt){    
     // Remove package from package singleton
     PackageDataController::getInstance()->removePackage(this->car->getPackage());
@@ -31,6 +44,11 @@ void CarSuccess::update(double dt){
     std::cout << "Car state changes from success to available" << std::endl;
 }
 
+/**
+ * @brief Handle notifications received by the Car in the Success state.
+ * @param location Location of the package.
+ * @param package Pointer to the package.
+ */
 void CarSuccess::notify(Vector3 location, Package* package){
 
 }
