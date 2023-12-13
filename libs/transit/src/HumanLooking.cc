@@ -22,15 +22,12 @@ void HumanLooking::update(double dt) {
     if (human->getMovement()) human->deleteMovement();
 
     // Notify cars
-    std::cout << this->human->getName() << "found package!" << std::endl;
+    std::cout << this->human->getName() << " found " << this->human->getPackage()->getName() << "!" << std::endl;
     this->human->updateSubscribers();
     this->human->notifySubscribers(this->human->getPackage()->getPosition());
 
     // Add found/already stolen package to list of found packages
     this->human->addFoundPackage(this->human->getPackage());
-
-    // Delete package from package singleton
-    PackageDataController::getInstance()->removePackage(this->human->getPackage());
 
     // Resetting package assigned to human instance
     this->human->setPackage(nullptr);

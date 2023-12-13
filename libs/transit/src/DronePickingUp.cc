@@ -35,9 +35,8 @@ void DronePickingUp::update(double dt){
             this->drone->resetToPackage();
             this->drone->setPickedUp(true);
 
-            // Remove the package from the Package singleton AND the scheduled deliveries stack
+            // Remove the package from the Package singleton
             PackageDataController::getInstance()->removePackage(this->drone->getPackage());
-            this->drone->getModel()->scheduledDeliveries.pop_front();
 
             // Change the Drone's state to Delivering
             this->drone->changeState(new DroneDelivering(this->drone));
@@ -46,9 +45,11 @@ void DronePickingUp::update(double dt){
             std::cout << "Drone has been set from PickingUp to Delivering" << std::endl;
         }
     }
-    // Otherwise, package has been stolen, change state Available
+    // Otherwise, package has been stolen, change state to Available
     else{
-        this->drone->getModel()->scheduledDeliveries.pop_front();
+        // this->drone->getModel()->scheduledDeliveries.pop_front();
+
+        this->drone->resetToPackage();
         this->drone->changeState(new DroneAvailable(this->drone));
     }
 }

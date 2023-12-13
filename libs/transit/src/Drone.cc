@@ -33,6 +33,7 @@ void Drone::getNextDelivery() {
   if (model && model->scheduledDeliveries.size() > 0) {
     package = model->scheduledDeliveries.front();
     PackageDataController::getInstance()->addPackage(package);
+    model->scheduledDeliveries.pop_front();
 
     if (package) {
       available = false;
