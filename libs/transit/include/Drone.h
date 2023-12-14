@@ -1,9 +1,11 @@
 #ifndef DRONE_H_
 #define DRONE_H_
 
+#include <algorithm>
 #include <vector>
 
 #include "IEntity.h"
+#include "IObserver.h"
 #include "IStrategy.h"
 #include "PathStrategy.h"
 #include "math/vector3.h"
@@ -34,7 +36,6 @@ class Drone : public IEntity {
    */
   ~Drone();
 
-
   /**
    * @brief Gets the next delivery in the scheduler
    */
@@ -58,6 +59,10 @@ class Drone : public IEntity {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  void subscribe(IObserver* observer);
+  void unsubscribe(IObserver* observer);
+  bool notifySubscribers(std::string context);
+
   // CUSTOM ADDED FUNCTIONS BELOW (ADD TO UML)
   void changeState(IDroneState* state);
 
@@ -80,7 +85,8 @@ class Drone : public IEntity {
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   PathStrategy* toFinalDestination = nullptr;
+  std::vector<IObserver*> observers;
   IDroneState* state;
 };
 
-#endif
+#endif  // DRONE_H_

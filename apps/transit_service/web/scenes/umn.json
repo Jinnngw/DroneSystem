@@ -31,20 +31,20 @@
       "start": 2.0,
       "duration": 2.0,
       "offset": [0, -0.5, 0]
-  }
+    }
   },
   {
     "command": "CreateEntity",
-    "params": {
+    "params":{
       "type": "helicopter",
       "name": "Helicopter",
       "mesh": "assets/model/helicopter.glb",
-      "position": [498.292, 550, -228.623],
-      "scale": [0.025, 0.025, 0.025],
+      "position": [0, 500, 0],
+      "scale": [0.04, 0.04, 0.04],
       "rotation": [0, 0, 0, 0],
       "direction": [1,0,0],
       "speed": 50.0,
-      "offset": [0, 1.5, 0]
+      "offset": [0, 0.6, 0]
     }
   },
   {
@@ -67,7 +67,7 @@
       "name": "Car",
       "mesh": "assets/model/car2.glb",
       "position": [100, 270, 100],
-      "scale": [1, 1, 1],
+      "scale": [2, 2, 2],
       "rotation": [0, 0, 0, 0],
       "direction": [1,0,0],
       "speed": 50.0,

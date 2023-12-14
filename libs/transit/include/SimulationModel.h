@@ -5,6 +5,7 @@
 #include "Drone.h"
 #include "IController.h"
 #include "IEntity.h"
+#include "IObserver.h"
 #include "Robot.h"
 #include "graph.h"
 #include <deque>
@@ -19,7 +20,7 @@
  * @brief Class SimulationModel handling the transit simulation. it can
  * communicate with the controller
  **/
-class SimulationModel {
+class SimulationModel : public IObserver{
  public:
   /**
    * @brief Default constructor that create the SimulationModel object
@@ -76,6 +77,8 @@ class SimulationModel {
    * @returns IGraph* graph pointer
   */
   const routing::IGraph* getGraph();
+
+  void sendNotif(IEntity* context, std::string moreContext);
 
   std::deque<Package*> scheduledDeliveries;
 

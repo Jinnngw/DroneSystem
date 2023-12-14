@@ -39,7 +39,7 @@ class IController {
   /**
    * @brief To allow message to be passed back to the view
    * @param event Type string contain name of the event
-   * @param detail Type JsonObject contain the details of the event
+   * @param details Type JsonObject contain the details of the event
    **/
   virtual void sendEventToView(const std::string& event,
                                const JsonObject& details) = 0;

@@ -3,9 +3,11 @@
 
 #include <vector>
 
+#include "IPublisher.h"
 #include "graph.h"
 #include "math/vector3.h"
 #include "util/json.h"
+
 
 class SimulationModel;
 
@@ -18,7 +20,7 @@ class SimulationModel;
  * in the physical system. Subclasses of IEntity can override the `Update`
  * function to implement their own movement behavior.
  */
-class IEntity {
+class IEntity : public IPublisher{
  public:
   /**
    * @brief Constructor that assigns a unique ID to the entity.
@@ -27,7 +29,7 @@ class IEntity {
 
   /**
    * @brief Constructor with JsonObject details to define the entity
-  */
+   */
   IEntity(JsonObject& details);
 
   /**
@@ -114,6 +116,12 @@ class IEntity {
    * @param col_ The new color of the entity
    */
   virtual void setColor(std::string col_);
+
+  /**
+   * @brief Sets the details of the entity
+   * @param 
+   */
+  virtual void setDetails(std::string key, std::string value);
 
   /**
    * @brief Rotate the entity around y axis.

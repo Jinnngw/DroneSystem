@@ -104,6 +104,7 @@ public:
 
     bool isAlive(){ return true; }
 
+
 private:
     // Simulation Model
     SimulationModel& model;
@@ -148,6 +149,7 @@ public:
 
     void stop() { alive_ = false; }
     bool isAlive() { return alive_; }
+
 
 protected:
 	Session* createSession() { return new TransitService(model); }

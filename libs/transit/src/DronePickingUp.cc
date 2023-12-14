@@ -11,7 +11,7 @@ DronePickingUp::DronePickingUp(Drone* drone){
 
     // Change Drone attributes to characterize specific state
     this->drone->setColor("yellow");
-    this->drone->setSpeed(15.0);
+    this->drone->setSpeed(25.0);
 }
 
 void DronePickingUp::update(double dt){
@@ -44,12 +44,18 @@ void DronePickingUp::update(double dt){
 
             // Terminal output for easier debugging
             std::cout << "Drone has been set from PickingUp to Delivering" << std::endl;
+
+            // Package has been picked up, notify SimulationModel (the observer)
+            this->drone->setDetails("dest", this->drone->getPackage()->getName());
+            this->drone->notifySubscribers("PackagePickedUp");
         }
     }
     // Otherwise, package has been stolen, change state to Available
     else{
-        // this->drone->getModel()->scheduledDeliveries.pop_front();
+        // Reset package assigned to Drone
         this->drone->resetToPackage();
+
+        // Change state of Drone from PickingUp to Available
         this->drone->changeState(new DroneAvailable(this->drone));
         std::cout << "Drone set from PickingUp to Available (package no longer exists)" << std::endl;
     }

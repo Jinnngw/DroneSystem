@@ -20,8 +20,13 @@ CarAvailable::CarAvailable(Car* car){
  * @param dt Time step for the update.
  */
 void CarAvailable::update(double dt){
+    // Giving Car it's initial destination (occurs once)
     if (!this->car->getToNextDestination()){
         this->car->getNextDestination();
+
+        // Notifying observer (SimulationModel) that car is driving to new destination
+        this->car->setDetails("dest", this->car->getDestinationCoords().toString());
+        this->car->notifySubscribers("NewDestination");
     }
     this->car->getToNextDestination()->move(this->car, dt);
     
@@ -32,8 +37,11 @@ void CarAvailable::update(double dt){
         this->car->deleteNextDestination();
         this->car->clearNextDestination();
         this->car->getNextDestination();
+
+        // Notifying observer (SimulationModel) that car is driving to new destination
+        this->car->setDetails("dest", this->car->getDestinationCoords().toString());
+        this->car->notifySubscribers("NewDestination");
     }
-    // State changes when car receives notification
 }
 
 /**
@@ -55,4 +63,8 @@ void CarAvailable::notify(Vector3 location, Package* package){
     this->car->changeState(new CarPickingUp(this->car));
     std::cout << "Car's state has changed from Available to PickingUp" << std::endl;
     // std::cout << "Package pointer assigned to car is " << this->package << std::endl;
+    
+    // Notifying observer (SimulationModel) that human is notifying cars to steal package
+    this->car->setDetails("package", this->car->getPackage()->getName());
+    this->car->notifySubscribers("TryingToStealPackage");
 }

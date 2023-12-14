@@ -28,5 +28,11 @@ void DroneAvailable::update(double dt){
 
         // Terminal output for easier debugging
         std::cout << "Drone has been set from Available to PickingUp" << std::endl;
+
+        // Assign the package's name as the dest value in details of Drone
+        this->drone->setDetails("dest", this->drone->getPackage()->getName());
+        
+        // Notify SimulationModel
+        this->drone->notifySubscribers("StartedDelivery");
     }
 }

@@ -104,6 +104,102 @@ $( document ).ready(function() {
           //console.log(data);
           removeEntity(data.details.id);
         }
+
+        // CUSTOM-ADDED EVENTS BELOW
+        const notificationBar = document.getElementById('notification-bar');
+        if (data.event == "NewDestination"){
+          // // Print debugging
+          // console.log("Inside the onmessage() function (NewDestination event)");
+          // console.log(data.details.my_string);
+          // console.log(data.details.type);
+          // console.log("ID is " + data.details.id);
+          // console.log("Destination is " + data.details.dest);
+
+          // Formatting text output of destination data
+          var notificationText = "";
+          if (data.details.type.includes("human")){
+            notificationText = data.details.name + " is traveling to " + data.details.dest + "\n";
+          }
+          else if (data.details.type.includes("car")){
+            notificationText = data.details.name + " is driving to " + data.details.dest + "\n";
+          }
+          
+          // Adding new text output to text of notification bar
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+
+        if (data.event == "StartedDelivery"){
+          // Formatting text output of destination data
+          var notificationText = "";
+          if (data.details.type.includes("drone")){
+            notificationText = data.details.name + " is flying to " + data.details.dest.substring(0, data.details.dest.length-8) + "'s package\n";
+          }
+          
+          // Adding new text output to text of notification bar
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+
+        if (data.event == "PackagePickedUp"){
+          // Formatting text output of destination data
+          var notificationText = "";
+          if (data.details.type.includes("drone")){
+            notificationText = data.details.name + " has picked up " + data.details.dest.substring(0, data.details.dest.length-8) + "'s package\n"
+                               + data.details.name + " is delivering " + data.details.dest.substring(0, data.details.dest.length-8) + "'s package to "
+                               + data.details.dest.substring(0, data.details.dest.length-8) + "\n";
+          }
+          
+          // Adding new text output to text of notification bar
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+
+        if (data.event == "DeliveryCompleted"){
+          // Formatting text output of destination data
+          var notificationText = "";
+          if (data.details.type.includes("drone")){
+            notificationText = data.details.name + " has successfully delivered " + data.details.dest.substring(0, data.details.dest.length-8) + "'s package"
+                                                 + " to " + data.details.dest.substring(0, data.details.dest.length-8)
+                                                 + "\n";
+          }
+          
+          // Adding new text output to text of notification bar
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+
+        if (data.event == "TryingToStealPackage"){
+          // Formatting text output of destination data
+          var notificationText = "";
+          notificationText = data.details.name + " is trying to steal " +
+                             data.details.package.substring(0, data.details.package.length-8) + "'s package!\n";
+
+          // Adding new text output to text of notification bar
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+
+        if (data.event == "StolePackage"){
+          // Formatting text output of destination data
+          var notificationText = "";
+          notificationText = data.details.name + " has stolen " +
+                             data.details.package.substring(0, data.details.package.length-8) + "'s package D:\n";
+
+          // Adding new text output to text of notification bar
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+
+        if (data.event == "FoundPackage"){
+          // Formatting text output of destination data
+          var notificationText = "";
+          notificationText = data.details.name + " found " +
+                             data.details.package.substring(0, data.details.package.length-8) + "'s package!\n";
+
+          // Adding new text output to text of notification bar
+          notificationBar.textContent = notificationBar.textContent + notificationText;
+        }
+        
+        // Checks if notification bar has too much text and removes first line if so
+        if (notificationBar.textContent.length >= 1200){
+          notificationBar.textContent = notificationBar.textContent.substring(notificationBar.textContent.indexOf('\n') + 1);
+        }
+
       }
     }
   }

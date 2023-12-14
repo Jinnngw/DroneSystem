@@ -54,6 +54,8 @@ class Vector3 {
      * object
      * @return The Vector3 Object comprised of the division of the two objects
      */
+
+    std::string toString() const;
     Vector3 operator/(double s) const;
     double operator*(const Vector3& v) const; //dot product
     Vector3 cross(const Vector3& v) const;

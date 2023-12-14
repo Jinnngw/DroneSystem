@@ -92,6 +92,12 @@ void HumanLooking::update(double dt) {
                                           human->getModel()->getGraph()));
     }
 
+    // Notifying observer (SimulationModel) that car has stolen package
+    if (this->human->getPackage()){
+      this->human->setDetails("package", this->human->getPackage()->getName());
+      this->human->notifySubscribers("FoundPackage");
+    }
+
     // Change state
     this->human->changeState(new HumanAvailable(this->human));
     std::cout << "Human has been set from Looking to Available (package no longer exists)" << std::endl;

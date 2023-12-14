@@ -9,6 +9,8 @@
 #include "ICarState.h"
 #include "ICarSubscriber.h"
 #include "Package.h"
+#include "IObserver.h"
+
 
 class ICarState;
 
@@ -84,6 +86,33 @@ class Car : public IEntity, public ICarSubscriber{
   Car& operator=(const Car& car) = delete;
 
   void notify(Vector3 location,Package* package);
+
+  /**
+   * @brief Subscribes an observer to receive notifications from this Car
+   * instance.
+   * @param observer A pointer to an instance of the Observer class that wishes
+   * to subscribe.
+   */
+  void subscribe(IObserver* observer);
+
+  /**
+   * @brief Unsubscribes an observer from receiving notifications from this Car
+   * instance.
+   * @param observer A pointer to an instance of the Observer class that wishes
+   * to subscribe.
+   */
+  void unsubscribe(IObserver* observer);
+
+  /**
+   * @brief Notifies all subscribed observers about a change in the Car's state.
+   * @return A boolean indicating the success of the notification process.
+   *         - Returns true if the notification was successful.
+   *         - Returns false if there was an issue during the notification
+   * process.
+   */
+  bool notifySubscribers(std::string context);
+
+  Vector3 getDestinationCoords();
 
  private:
   ICarState* state;

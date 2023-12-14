@@ -58,6 +58,10 @@ class Package : public IEntity {
 
   bool requiresDelivery = true;
 
+  void subscribe(IObserver* observer);
+  void unsubscribe(IObserver* observer);
+  bool notifySubscribers(std::string context);
+
  private:
   Vector3 destination;
   std::string strategyName;

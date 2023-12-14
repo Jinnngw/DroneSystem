@@ -1,4 +1,7 @@
 #include "math/vector3.h"
+#include <iostream>
+#include <iomanip> // for std::setprecision and std::fixed
+#include <sstream> // for std::ostringstream
 
 #define _USE_MATH_DEFINES
 #define EPS 0.0000001
@@ -73,6 +76,14 @@ Vector3 Vector3::unit() const {
 
 double Vector3::dist(const Vector3& v) const {
   return ((*this)-v).magnitude();
+}
+
+std::string Vector3::toString() const {
+  std::ostringstream temp;
+  temp << std::fixed <<std::setprecision(2);
+  temp << "(" << this->x << ", " << this->y << ", " << this->z << ")";
+
+  return temp.str();
 }
 
 std::ostream& operator<<(std::ostream& strm, const Vector3& v) {

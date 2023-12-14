@@ -20,7 +20,7 @@ CarSuccess::CarSuccess(Car* car){
  * @brief Updates the state of the Car after successful package delivery.
  * @param dt Time step for the update.
  */
-void CarSuccess::update(double dt){    
+void CarSuccess::update(double dt){        
     // Remove package from package singleton
     PackageDataController::getInstance()->removePackage(this->car->getPackage());
 

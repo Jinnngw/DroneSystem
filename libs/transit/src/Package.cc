@@ -31,3 +31,9 @@ void Package::handOff() {
     owner->receive(this);
   }
 }
+
+void Package::subscribe(IObserver* observer) {}
+
+void Package::unsubscribe(IObserver* observer) {}
+
+bool Package::notifySubscribers(std::string context) { return true;}

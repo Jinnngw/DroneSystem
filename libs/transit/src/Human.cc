@@ -27,6 +27,32 @@ Human::~Human() {
   if (movement) delete movement;
 }
 
+void Human::subscribe(IObserver* observer) {
+  this->observers.push_back(observer);
+}
+
+void Human::unsubscribe(IObserver* observer) {
+  this->observers.erase(
+      std::remove(observers.begin(), observers.end(), observer),
+      observers.end());
+}
+
+bool Human::notifySubscribers(std::string context) {
+  // std::cout << "notification has been called" << std::endl;
+  if (observers.empty()) {
+    std::cout << "No observers found" << std::endl;
+    return false;
+  }
+
+  for (IObserver* observer : observers) {
+    // std::cout << "observers is not empty" << std::endl;
+    observer->sendNotif(this, context);
+    // std::cout << "sendNotif completed" << std::endl;
+  }
+
+  return true;
+}
+
 void Human::update(double dt) {
   state->update(dt);
 }
@@ -136,7 +162,7 @@ void Human::notifySubscribers(Vector3 location) {
 void Human::updateSubscribers(){
   // Get map of all entities in model
   std::map<int, IEntity*> entities = model->getEntities();
-  float distThreshold = 3000;
+  float distThreshold = 2000;
 
   // Unsubscribe all cars that are too far away from human
   for (ICarSubscriber* car : cars){

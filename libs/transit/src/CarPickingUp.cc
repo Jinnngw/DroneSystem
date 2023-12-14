@@ -43,14 +43,23 @@ void CarPickingUp::update(double dt){
 
         this->car->changeState(new CarSuccess(this->car));
         std::cout << "Car state changes from pickingup to success" << std::endl;
+
+        // Notifying observer (SimulationModel) that car has stolen package
+        this->car->setDetails("package", this->car->getPackage()->getName());
+        this->car->notifySubscribers("StolePackage");
     }
     // Otherwise, if package still exists then not yet at package location, continue driving towards it
     else if (packageExists){
         this->car->getToNextDestination()->move(this->car, dt);
+        
+        // Front of car model faces the wrong way, rotate to compensate
+        this->car->rotate(-M_PI / 4 + 0.01);
+        
         // std::cout << this->car->getName() << " distance to package is " << this->car->getPosition().dist(this->car->getPackage()->getPosition()) << std::endl;
     }
     // Otherwise, package has already been stolen and destroyed by another car, change state back to Available
-    else{
+    else{        
+        // Changing car state from PickingUp to Available
         this->car->changeState(new CarAvailable(this->car));
         this->car->setSpeed(this->car->getSpeed() - 20.0);
     }

@@ -24,3 +24,9 @@ void Helicopter::update(double dt) {
     movement = new BeelineStrategy(position, dest);
   }
 }
+
+void Helicopter::subscribe(IObserver* observer) {}
+
+void Helicopter::unsubscribe(IObserver* observer) {}
+
+bool Helicopter::notifySubscribers(std::string context) { return true;}

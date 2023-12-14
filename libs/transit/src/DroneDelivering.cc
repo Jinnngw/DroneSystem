@@ -9,7 +9,7 @@ DroneDelivering::DroneDelivering(Drone* drone){
 
     // Change Drone attributes to characterize specific state
     this->drone->setColor("red");
-    this->drone->setSpeed(30.0);
+    this->drone->setSpeed(35.0);
 
 }
 
@@ -36,6 +36,9 @@ void DroneDelivering::update(double dt){
             // Reset the drone's final destination
             this->drone->resetToFinalDestination();
 
+            // Saving package name before it is released
+            std::string destination = this->drone->getPackage()->getName();
+
             // Handoff the package to the customer
             this->drone->getPackage()->handOff();
 
@@ -51,6 +54,10 @@ void DroneDelivering::update(double dt){
 
             // Terminal output for easier debugging
             std::cout << "Drone has been set from Delivering to Available" << std::endl;
+
+            // Package has been delivered, notify SimulationModel
+            this->drone->setDetails("dest", destination);
+            this->drone->notifySubscribers("DeliveryCompleted");
         }
     }
 }

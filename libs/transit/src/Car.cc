@@ -124,3 +124,35 @@ void Car::notify(Vector3 location, Package* package){
   // std::cout << "NOTIFY IN CAR" << std::endl;
   this->state->notify(location, package);
 }
+
+// These are the subscribe functions for Car as a Publisher
+  // Car is also a Subscriber for Humans (see notify function above)
+void Car::subscribe(IObserver* observer) {
+  this->observers.push_back(observer);
+}
+
+void Car::unsubscribe(IObserver* observer) {
+  this->observers.erase(
+      std::remove(observers.begin(), observers.end(), observer),
+      observers.end());
+}
+
+bool Car::notifySubscribers(std::string context) {
+  // std::cout << "notification has been called" << std::endl;
+  if (observers.empty()) {
+    std::cout << "No observers found" << std::endl;
+    return false;
+  }
+
+  for (IObserver* observer : observers) {
+    // std::cout << "observers is not empty" << std::endl;
+    observer->sendNotif(this, context);
+    // std::cout << "sendNotif completed" << std::endl;
+  }
+
+  return true;
+}
+
+Vector3 Car::getDestinationCoords(){
+  return this->destination;
+}

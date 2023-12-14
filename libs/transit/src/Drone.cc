@@ -2,16 +2,16 @@
 #include "Drone.h"
 
 #include <cmath>
+#include <iostream>
 #include <limits>
 
 #include "AstarStrategy.h"
 #include "BeelineStrategy.h"
-#include "DfsStrategy.h"
 #include "BfsStrategy.h"
+#include "DfsStrategy.h"
 #include "DijkstraStrategy.h"
 #include "JumpDecorator.h"
 #include "SpinDecorator.h"
-
 #include "Package.h"
 #include "SimulationModel.h"
 
@@ -51,40 +51,23 @@ void Drone::getNextDelivery() {
 
       std::string strat = package->getStrategyName();
       if (strat == "astar") {
-        toFinalDestination =
-          new JumpDecorator(
-            new AstarStrategy(
-              packagePosition,
-              finalDestination,
-              model->getGraph()));
+        toFinalDestination = new JumpDecorator(new AstarStrategy(
+            packagePosition, finalDestination, model->getGraph()));
       } else if (strat == "dfs") {
         toFinalDestination =
-          new SpinDecorator(
-            new JumpDecorator(
-              new DfsStrategy(
-                packagePosition,
-                finalDestination,
-                model->getGraph())));
+            new SpinDecorator(new JumpDecorator(new DfsStrategy(
+                packagePosition, finalDestination, model->getGraph())));
       } else if (strat == "bfs") {
         toFinalDestination =
-          new SpinDecorator(
-            new SpinDecorator(
-              new BfsStrategy(
-                packagePosition,
-                finalDestination,
-                model->getGraph())));
+            new SpinDecorator(new SpinDecorator(new BfsStrategy(
+                packagePosition, finalDestination, model->getGraph())));
       } else if (strat == "dijkstra") {
         toFinalDestination =
-          new JumpDecorator(
-            new SpinDecorator(
-              new DijkstraStrategy(
-                packagePosition,
-                finalDestination,
-                model->getGraph())));
+            new JumpDecorator(new SpinDecorator(new DijkstraStrategy(
+                packagePosition, finalDestination, model->getGraph())));
       } else {
-        toFinalDestination = new BeelineStrategy(
-          packagePosition,
-          finalDestination);
+        toFinalDestination =
+            new BeelineStrategy(packagePosition, finalDestination);
       }
     }
   }
@@ -134,6 +117,24 @@ void Drone::resetToFinalDestination(){
 
 void Drone::setPickedUp(bool val){
   this->pickedUp = val;
+}
+
+void Drone::subscribe(IObserver* observer) { observers.push_back(observer); }
+
+void Drone::unsubscribe(IObserver* observer) {
+  observers.erase(std::remove(observers.begin(), observers.end(), observer),
+                  observers.end());
+}
+
+bool Drone::notifySubscribers(std::string context) {
+  if (observers.empty()) {
+    std::cout << "No observers found." << std::endl;
+    return false;
+  }
+  for (IObserver* observer : observers) {
+    observer->sendNotif(this, context);
+  }
+  return true;
 }
 
 void Drone::setAvailable(bool val){

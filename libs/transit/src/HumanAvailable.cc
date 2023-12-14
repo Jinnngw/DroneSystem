@@ -40,6 +40,10 @@ void HumanAvailable::update(double dt){
       dest.y = human->getPosition().y;
       dest.z = ((static_cast<double>(rand())) / RAND_MAX) * (1600) - 800;
 
+      // Notify SimulationModel that human is moving to new destination
+      this->human->setDetails("dest", dest.toString());
+      this->human->notifySubscribers("NewDestination");
+
       // If human has a simulation model (it should),
       if (human->getModel()){
         // Set the movement of the human to a route with the randomized destination
