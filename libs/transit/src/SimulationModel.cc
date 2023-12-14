@@ -1,3 +1,8 @@
+/**
+ * @file SimulationModel.cc
+ * @brief Implementation of the SimulationModel class.
+ */
+
 #include "SimulationModel.h"
 
 #include "DroneFactory.h"
@@ -6,6 +11,10 @@
 #include "HumanFactory.h"
 #include "HelicopterFactory.h"
 
+/**
+ * @brief Constructs the SimulationModel object.
+ * @param controller Reference to the controller interface.
+ */
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
   entityFactory.AddFactory(new DroneFactory());
@@ -15,6 +24,9 @@ SimulationModel::SimulationModel(IController& controller)
   entityFactory.AddFactory(new HelicopterFactory());
 }
 
+/**
+ * @brief Destructor for SimulationModel; deallocates entities and graph.
+ */
 SimulationModel::~SimulationModel() {
   // Delete dynamically allocated variables
   for (auto& [id, entity] : entities) {
@@ -23,6 +35,11 @@ SimulationModel::~SimulationModel() {
   delete graph;
 }
 
+/**
+ * @brief Creates an entity based on a provided JSON object.
+ * @param entity JSON object containing entity specifications.
+ * @return Pointer to the created entity, or nullptr if creation fails.
+ */
 IEntity* SimulationModel::createEntity(JsonObject& entity) {
   std::string name = entity["name"];
   JsonArray position = entity["position"];
@@ -39,11 +56,18 @@ IEntity* SimulationModel::createEntity(JsonObject& entity) {
   return myNewEntity;
 }
 
+/**
+ * @brief Marks an entity for removal from the simulation.
+ * @param id The identifier of the entity to be removed.
+ */
 void SimulationModel::removeEntity(int id) {
   removed.insert(id);
 }
 
-/// Schedules a Delivery for an object in the scene
+/**
+ * @brief Schedules a delivery trip for a package.
+ * @param details JSON object containing trip details.
+ */
 void SimulationModel::scheduleTrip(JsonObject& details) {
   std::string name = details["name"];
   JsonArray start = details["start"];
@@ -85,11 +109,18 @@ void SimulationModel::scheduleTrip(JsonObject& details) {
   }
 }
 
+/**
+ * @brief Retrieves the routing graph.
+ * @return Pointer to the routing graph.
+ */
 const routing::IGraph* SimulationModel::getGraph() {
   return graph;
 }
 
-/// Updates the simulation
+/**
+ * @brief Updates the simulation for a time step.
+ * @param dt Time step for the update.
+ */
 void SimulationModel::update(double dt) {
   for (auto& [id, entity] : entities) {
     entity->update(dt);
@@ -101,10 +132,17 @@ void SimulationModel::update(double dt) {
   removed.clear();
 }
 
+/**
+ * @brief Stops the simulation.
+ */
 void SimulationModel::stop(void) {
   controller.stop();
 }
 
+/**
+ * @brief Removes an entity from the simulation.
+ * @param id The identifier of the entity to remove.
+ */
 void SimulationModel::removeFromSim(int id) {
   IEntity* entity = entities[id];
   if (entity) {

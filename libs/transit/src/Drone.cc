@@ -1,3 +1,8 @@
+/**
+ * @file Drone.cc
+ * @brief Implementation of the Drone class.
+ */
+
 #define _USE_MATH_DEFINES
 #include "Drone.h"
 
@@ -15,15 +20,27 @@
 #include "Package.h"
 #include "SimulationModel.h"
 
+
+/**
+ * @brief Constructs a Drone object.
+ * @param obj Initialization data for the Drone.
+ */
 Drone::Drone(JsonObject& obj) : IEntity(obj) {
   available = true;
 }
 
+/**
+ * @brief Destructor for the Drone class, deallocates paths.
+ */
 Drone::~Drone() {
   if (toPackage) delete toPackage;
   if (toFinalDestination) delete toFinalDestination;
 }
 
+/**
+ * @file DroneFactory.cc
+ * @brief Implementation of the Factory pattern for creating Drone objects.
+ */
 void Drone::getNextDelivery() {
   if (model && model->scheduledDeliveries.size() > 0) {
     package = model->scheduledDeliveries.front();
@@ -79,6 +96,10 @@ void Drone::getNextDelivery() {
   }
 }
 
+/**
+ * @brief Updates the Drone's state and position.
+ * @param dt The time step for updating the drone's position and state.
+ */
 void Drone::update(double dt) {
   if (available)
     getNextDelivery();

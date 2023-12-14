@@ -1,6 +1,17 @@
+/**
+ * @file AstarStrategy.cc
+ * @brief Implementation of A* pathfinding strategy.
+ */
+
 #include "AstarStrategy.h"
 #include "routing/astar.h"
 
+/**
+ * @brief Constructs the A* Strategy object.
+ * @param pos Initial position.
+ * @param des Destination position.
+ * @param g Graph on which A* is applied.
+ */
 AstarStrategy::AstarStrategy(Vector3 pos, Vector3 des,
                              const routing::IGraph* g) {
   std::vector<float> start = {

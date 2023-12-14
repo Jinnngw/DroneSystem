@@ -1,6 +1,17 @@
+/**
+ * @file DijkstraStrategy.cc
+ * @brief Implementation of Dijkstra pathfinding strategy.
+ */
+
 #include "DijkstraStrategy.h"
 #include "routing/dijkstra.h"
 
+/**
+ * @brief Constructs the Dijkstra Strategy object.
+ * @param pos Initial position.
+ * @param des Destination position.
+ * @param g Graph on which Dijkstra's algorithm is applied.
+ */
 DijkstraStrategy::DijkstraStrategy(Vector3 pos, Vector3 des,
                                    const routing::IGraph* g) {
   std::vector<float> start = {

@@ -14,6 +14,10 @@ class Helicopter : public IEntity {
 
   ~Helicopter();
 
+  /**
+   * @brief Updates the Helicopter's state.
+   * @param dt The time step for updating the helicopter's position and state.
+   */
   void update(double dt);
 
  private:

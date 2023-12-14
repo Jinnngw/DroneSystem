@@ -1,6 +1,17 @@
+/**
+ * @file BfsStrategy.cc
+ * @brief Implementation of Breadth-First Search pathfinding strategy.
+ */
+
 #include "BfsStrategy.h"
 #include "routing/breadth_first_search.h"
 
+/**
+ * @brief Constructs the BFS Strategy object.
+ * @param pos Initial position.
+ * @param des Destination position.
+ * @param g Graph on which BFS is applied.
+ */
 BfsStrategy::BfsStrategy(Vector3 pos, Vector3 des,
                          const routing::IGraph* g) {
   std::vector<float> start = {

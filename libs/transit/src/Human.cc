@@ -1,3 +1,8 @@
+/**
+ * @file Human.cc
+ * @brief Implementation of the Human class.
+ */
+
 #define _USE_MATH_DEFINES
 #include "Human.h"
 
@@ -7,12 +12,24 @@
 #include "AstarStrategy.h"
 #include "SimulationModel.h"
 
+
+/**
+ * @brief Constructs a Human object.
+ * @param obj Initialization data for the Human.
+ */
 Human::Human(JsonObject& obj) : IEntity(obj) {}
 
+/**
+ * @brief Destructor for the Human class, deallocates movement strategy.
+ */
 Human::~Human() {
   if (movement) delete movement;
 }
 
+/**
+ * @brief Updates the Human's state.
+ * @param dt The time step for updating the human's position and state.
+ */
 void Human::update(double dt) {
   if (movement && !movement->isCompleted()) {
     movement->move(this, dt);

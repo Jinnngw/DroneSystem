@@ -14,6 +14,10 @@ class Human : public IEntity {
 
   ~Human();
 
+  /**
+   * @brief Updates the Human's state.
+   * @param dt The time step for updating the human's position and state.
+   */
   void update(double dt);
 
  private:

@@ -42,6 +42,11 @@ class ICelebrationDecorator : public IStrategy {
    */
   virtual bool isCompleted();
 
+/**
+ * @brief Defines celebration behavior for an entity.
+ * @param entity The entity performing the celebration.
+ * @param dt Time step for the celebration update.
+ */
   virtual void celebrate(IEntity* entity, double dt) = 0;
 };
 
