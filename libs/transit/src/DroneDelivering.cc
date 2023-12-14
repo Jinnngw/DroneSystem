@@ -4,6 +4,10 @@
 #include "IStrategy.h"
 #include "PathStrategy.h"
 
+/**
+ * @brief Constructor for DroneDelivering. Initializes the drone's delivering state.
+ * @param drone Pointer to the Drone object.
+ */
 DroneDelivering::DroneDelivering(Drone* drone){
     this->drone = drone;
 
@@ -13,6 +17,10 @@ DroneDelivering::DroneDelivering(Drone* drone){
 
 }
 
+/**
+ * @brief Update function for DroneDelivering. Manages the delivery process of the drone.
+ * @param dt Time step for the update.
+ */
 void DroneDelivering::update(double dt){
     // If the drone does not have a package to get to but does still have
     // a final destination to get to from an already picked-up package,

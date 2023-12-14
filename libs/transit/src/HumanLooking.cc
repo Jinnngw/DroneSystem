@@ -2,10 +2,18 @@
 #include "HumanAvailable.h"
 #include "AstarStrategy.h"
 
+/**
+ * @brief Constructor for HumanLooking. Sets the human's looking state.
+ * @param human Pointer to the Human object.
+ */
 HumanLooking::HumanLooking(Human* human){
   this->human = human;
 }
 
+/**
+ * @brief Update function for HumanLooking. Manages the behavior when the human is looking for packages.
+ * @param dt Time step for the update.
+ */
 void HumanLooking::update(double dt) {
 
   // Check if package still exists (may have already been stolen by another car)

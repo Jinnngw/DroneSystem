@@ -5,7 +5,10 @@
 #include "IStrategy.h"
 #include "PackageDataController.h"
 
-
+/**
+ * @brief Constructor for DronePickingUp. Initializes the drone's picking-up state.
+ * @param drone Pointer to the Drone object.
+ */
 DronePickingUp::DronePickingUp(Drone* drone){
     this->drone = drone;
 
@@ -14,6 +17,10 @@ DronePickingUp::DronePickingUp(Drone* drone){
     this->drone->setSpeed(25.0);
 }
 
+/**
+ * @brief Update function for DronePickingUp. Manages the package pickup process.
+ * @param dt Time step for the update.
+ */
 void DronePickingUp::update(double dt){
     // Check if package still exists (may have been stolen)
     bool packageExists = false;

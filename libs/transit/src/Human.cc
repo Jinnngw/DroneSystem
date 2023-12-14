@@ -15,28 +15,47 @@
 #include "Car.h"
 #include "ICarSubscriber.h"
 
-
+/**
+ * @brief Constructor for Human. Initializes the human with given JSON data.
+ * @param obj JSON object containing initialization data for the human.
+ */
 Human::Human(JsonObject& obj) : IEntity(obj) {
   this->packages = PackageDataController::getInstance();
   // Initialize the default state
   state = new HumanAvailable(this);
 }
 
+/**
+ * @brief Destructor for Human. Cleans up resources.
+ */
 Human::~Human() {
   delete state;
   if (movement) delete movement;
 }
 
+/**
+ * @brief Subscribes an observer to the human.
+ * @param observer Pointer to the IObserver to be subscribed.
+ */
 void Human::subscribe(IObserver* observer) {
   this->observers.push_back(observer);
 }
 
+/**
+ * @brief Unsubscribes an observer from the human.
+ * @param observer Pointer to the IObserver to be unsubscribed.
+ */
 void Human::unsubscribe(IObserver* observer) {
   this->observers.erase(
       std::remove(observers.begin(), observers.end(), observer),
       observers.end());
 }
 
+/**
+ * @brief Notifies all subscribed observers with a specific context.
+ * @param context The context of the notification as a string.
+ * @return True if notification is sent successfully, false otherwise.
+ */
 bool Human::notifySubscribers(std::string context) {
   // std::cout << "notification has been called" << std::endl;
   if (observers.empty()) {
@@ -53,37 +72,79 @@ bool Human::notifySubscribers(std::string context) {
   return true;
 }
 
+/**
+ * @brief Updates the human's state based on the time step.
+ * @param dt Time step for the update.
+ */
 void Human::update(double dt) {
   state->update(dt);
 }
 
+/**
+ * @brief Changes the state of the human.
+ * @param newState Pointer to the new IHumanState object.
+ */
 void Human::changeState(IHumanState* newState) {
   delete state;
   state = newState;
 }
 
+/**
+ * @brief Retrieves the current movement strategy of the human.
+ * @return Pointer to the current IStrategy object.
+ */
 IStrategy* Human::getMovement(){
   return this->movement;
 }
 
+/**
+ * @brief Sets the movement strategy for the human.
+ * @param movement Pointer to the IStrategy to be set.
+ */
 void Human::setMovement(IStrategy* movement){
   this->movement = movement;
 }
 
+/**
+ * @brief Deletes the current movement strategy object of the human.
+ */
 void Human::deleteMovement(){
   delete movement;
 }
 
+/**
+ * @brief Retrieves the package currently assigned to the human.
+ * @return Pointer to the assigned Package object.
+ */
 Package* Human::getPackage() {return package;}
 
+/**
+ * @brief Retrieves the simulation model the human is part of.
+ * @return Pointer to the SimulationModel object.
+ */
 SimulationModel* Human::getModel() {return model;}
 
+/**
+ * @brief Retrieves the list of packages known to the human.
+ * @return Vector of pointers to Package objects.
+ */
 std::vector<Package*> Human::getPackages() { return packages->getPackageList(); }
 
+/**
+ * @brief Assigns a package to the human.
+ * @param package Pointer to the Package to be assigned.
+ */
 void Human::setPackage(Package* package){ this->package = package;}
 
+/**
+ * @brief Retrieves the list of car subscribers known to the human.
+ * @return Vector of pointers to ICarSubscriber objects.
+ */
 std::vector<ICarSubscriber*> Human::getCars() { return cars; }
 
+/**
+ * @brief Calculates and assigns the next delivery for the human.
+ */
 void Human::getNextDelivery() {
 
   // std::cout << model->scheduledDeliveries.size() << std::endl;
@@ -125,6 +186,10 @@ void Human::getNextDelivery() {
   }
 }
 
+/**
+ * @brief Subscribes a car to the human.
+ * @param observer Pointer to the ICarSubscriber to be subscribed.
+ */
 void Human::subscribe(ICarSubscriber* observer){
   // Check if car is already subscribed to Human
   for (ICarSubscriber* car : cars){
@@ -139,6 +204,10 @@ void Human::subscribe(ICarSubscriber* observer){
   this->cars.push_back(observer);
 }
 
+/**
+ * @brief Unsubscribes a car from the human.
+ * @param observer Pointer to the ICarSubscriber to be unsubscribed.
+ */
 void Human::unsubscribe(ICarSubscriber* observer){
   for (int i=0;i<this->cars.size();i++){
     if (cars[i] = observer){
@@ -149,6 +218,10 @@ void Human::unsubscribe(ICarSubscriber* observer){
   }
 }
 
+/**
+ * @brief Notifies car subscribers about a found location.
+ * @param location The location to notify about as a Vector3.
+ */
 void Human::notifySubscribers(Vector3 location) {
   // Notify ICarSubscribers about the found location
   for (auto car : cars) {
@@ -158,7 +231,9 @@ void Human::notifySubscribers(Vector3 location) {
   std::cout << this->getName() << " notified " << cars.size() << " cars" << std::endl;
 }
 
-// Updates cars subscribed to Human depending on distance from human
+/**
+ * @brief Updates the list of car subscribers based on their distance from the human.
+ */
 void Human::updateSubscribers(){
   // Get map of all entities in model
   std::map<int, IEntity*> entities = model->getEntities();
@@ -186,6 +261,10 @@ void Human::updateSubscribers(){
 
 }
 
+/**
+ * @brief Adds a found package to the list of known packages.
+ * @param package Pointer to the Package that was found.
+ */
 void Human::addFoundPackage(Package* package){
   this->foundPackages.push_back(package);
 }

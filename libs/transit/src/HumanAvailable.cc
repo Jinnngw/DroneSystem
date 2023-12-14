@@ -6,11 +6,18 @@
 #include "Package.h"
 #include "SimulationModel.h"
 
-
+/**
+ * @brief Constructor for HumanAvailable. Sets the initial state of the human.
+ * @param human Pointer to the Human object being controlled.
+ */
 HumanAvailable::HumanAvailable(Human* human){
     this->human = human;
 }
 
+/**
+ * @brief Update function for HumanAvailable. Manages the behavior when the human is available.
+ * @param dt Time step for the update.
+ */
 void HumanAvailable::update(double dt){
   // Get next package (null if no package)
   this->human->getNextDelivery();

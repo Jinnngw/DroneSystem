@@ -3,6 +3,10 @@
 #include "Package.h"
 #include "IStrategy.h"
 
+/**
+ * @brief Constructor for DroneAvailable. Sets the initial state of the drone.
+ * @param drone Pointer to the Drone object being controlled.
+ */
 DroneAvailable::DroneAvailable(Drone* drone){
     this->drone = drone;
 
@@ -12,6 +16,10 @@ DroneAvailable::DroneAvailable(Drone* drone){
 
 }
 
+/**
+ * @brief Update function for DroneAvailable. Manages the state transitions and actions when the drone is available.
+ * @param dt The time step for the update.
+ */
 void DroneAvailable::update(double dt){
     // std::cout << "Update for available state of drone" << std::endl;
 
