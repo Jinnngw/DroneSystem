@@ -49,19 +49,48 @@ class Vector3 {
      */
     Vector3 operator*(double s) const;
     /**
-     * @brief Overrides / operator.
-     * @param[in] v The Vector3 object you would like to divide to this Vector3
-     * object
-     * @return The Vector3 Object comprised of the division of the two objects
-     */
-
+    * @brief Converts the vector to a string representation.
+    * @return String representation of the vector in the format "(x, y, z)".
+    */
     std::string toString() const;
+    /**
+    * @brief Divides the vector by a scalar.
+    * @param s Scalar to divide by.
+    * @return Vector3 representing the result of the division.
+    */
     Vector3 operator/(double s) const;
+    /**
+    * @brief Dot product of this vector with another vector.
+    * @param v Other vector to perform dot product with.
+    * @return Dot product as a double.
+    */
     double operator*(const Vector3& v) const; //dot product
+    /**
+    * @brief Cross product of this vector with another vector.
+    * @param v Other vector to perform cross product with.
+    * @return Vector3 representing the cross product.
+    */
     Vector3 cross(const Vector3& v) const;
+    /**
+    * @brief Calculates the magnitude (length) of the vector.
+    * @return Magnitude of the vector.
+    */
     double magnitude() const;
+    /**
+    * @brief Normalizes this vector (makes its magnitude equal to 1).
+    * @return Reference to the normalized vector.
+    */
     Vector3& normalize();
+    /**
+    * @brief Calculates the unit vector in the same direction as this vector.
+    * @return Unit vector in the same direction.
+    */
     Vector3 unit() const; // normal vector in same direction
+    /**
+    * @brief Calculates the distance from this vector to another vector.
+    * @param v Other vector to calculate the distance to.
+    * @return Distance to the other vector.
+    */
     double dist(const Vector3& v) const;
     friend std::ostream& operator<<(std::ostream& strm, const Vector3& v);
 };
