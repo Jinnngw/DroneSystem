@@ -7,7 +7,6 @@
 class DroneAvailable : public IDroneState{
     public:
         DroneAvailable(Drone* drone);
-
         /**
          * @brief update the car's state(speed and destination)
          * @param dt Delta time (type: double)

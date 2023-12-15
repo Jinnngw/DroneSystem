@@ -58,6 +58,7 @@ class Package : public IEntity {
 
   bool requiresDelivery = true;
 
+  //Doxygen documentation for the following are located in the .h of the parent class
   void subscribe(IObserver* observer);
   void unsubscribe(IObserver* observer);
   bool notifySubscribers(std::string context);

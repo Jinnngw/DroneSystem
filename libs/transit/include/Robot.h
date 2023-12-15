@@ -40,6 +40,7 @@ class Robot : public IEntity {
 
   bool requestedDelivery = true;
 
+  // Existing subscription function documentation locatd in .h of parent class.
   void subscribe(IObserver* observer);
   void unsubscribe(IObserver* observer);
   bool notifySubscribers(std::string context);

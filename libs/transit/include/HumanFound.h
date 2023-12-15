@@ -9,7 +9,11 @@ class HumanFound : public IHumanState {
   HumanFound(Human* human);
 
   void update(double dt) override;
-
+  /**
+   * @brief Notifies all Car subscribers about a specific location.
+   *
+   * @param location The location relevant to the notification.
+   */
   void notifySubscribers(Vector3 location);
 
  private:

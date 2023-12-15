@@ -3,7 +3,6 @@
 
 #include "PathStrategy.h"
 #include "graph.h"
-
 /**
  * @brief this class inhertis from the PathStrategy class and is responsible for
  * generating the astar path that the drone will take.

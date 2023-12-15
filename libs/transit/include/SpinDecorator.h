@@ -17,7 +17,6 @@ class SpinDecorator : public ICelebrationDecorator {
    * @param[in] spinSpeed multiplier for how fast to spin
    */
   SpinDecorator(PathStrategy* strategy, double time = 4, double spinSpeed = 1);
-
   /**
    * @brief Move the entity with the spin behavior for 4 seconds.
    * 

@@ -2,7 +2,6 @@
 #define BEELINE_H_
 
 #include "PathStrategy.h"
-
 /**
  * @brief this class inherits from the IStrategy class and is responsible for
  * generating the beeline that the drone will take.

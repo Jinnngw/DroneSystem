@@ -15,13 +15,11 @@ class CompositeFactory : public IEntityFactory {
    *nullpointer if creation failed.
    **/
   IEntity* CreateEntity(JsonObject& entity);
-
   /**
    * @brief Adds given factory
    * @param factoryEntity - Factory to be added.
    **/
   void AddFactory(IEntityFactory* factoryEntity);
-
   /**
    * @brief Destructor for CompositeFactory class.
    **/

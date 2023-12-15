@@ -15,7 +15,6 @@ class PackageFactory : public IEntityFactory {
    * @brief Destructor for PackageFactory class.
    **/
   virtual ~PackageFactory() {}
-
   /**
    * @brief Creates entity using the given JSON object, if possible.
    * @param entity - JsonObject to be used to create the new entity.

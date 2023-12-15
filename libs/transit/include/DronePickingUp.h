@@ -7,7 +7,6 @@
 class DronePickingUp : public IDroneState{
     public:
         DronePickingUp(Drone* drone);
-
         /**
          * @brief update the drone's state(speed and destination)
          * @param dt Delta time (type: double)

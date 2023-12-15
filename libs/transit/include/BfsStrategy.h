@@ -3,7 +3,6 @@
 
 #include "PathStrategy.h"
 #include "graph.h"
-
 /**
  * @brief this class inhertis from the PathStrategy class and is responsible for
  * generating the depth first search path that the drone will take.

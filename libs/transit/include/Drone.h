@@ -59,8 +59,21 @@ class Drone : public IEntity {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  /**
+   * @brief Subscribes an observer to receive notifications from this Drone instance.
+   * @param observer A pointer to an instance of the Observer class that wishes to subscribe.
+   */
   void subscribe(IObserver* observer);
+  /**
+   * @brief Unsubscribes an observer from receiving notifications from this Drone instance.
+   * @param observer A pointer to an instance of the Observer class that wishes to unsubscribe.
+   */
   void unsubscribe(IObserver* observer);
+  /**
+   * @brief Notifies all subscribed observers about a change in the Drone's state.
+   * @param context A string providing context for the notification.
+   * @return True if the notification was successful, false otherwise.
+   */
   bool notifySubscribers(std::string context);
 
   // CUSTOM ADDED FUNCTIONS BELOW (ADD TO UML)
@@ -72,11 +85,42 @@ class Drone : public IEntity {
   IStrategy* getToPackage();
   PathStrategy* getToFinalDestination();
 
+  /**
+   * @brief Resets the strategy to reach the package to its initial state.
+   * 
+   * This method is used when the drone needs to abandon its current route to the package
+   * and potentially plan a new one.
+   */
   void resetToPackage();
+  /**
+   * @brief Resets the strategy for reaching the final destination after package pickup.
+   * 
+   * This is typically used when the delivery is complete or if the delivery plan changes.
+   */
   void resetToFinalDestination();
+  /**
+   * @brief Clears the current package assignment from the drone.
+   * 
+   * This method is used to reset the drone's package-related information, usually after
+   * delivery completion or if the package is no longer available for delivery.
+   */
   void resetPackage();
 
+  /**
+   * @brief Sets the 'picked up' status of the drone.
+   * 
+   * This method updates the drone's status to reflect whether it has picked up a package.
+   * 
+   * @param val Boolean value indicating the 'picked up' status.
+   */
   void setPickedUp(bool val);
+  /**
+   * @brief Sets the availability status of the drone.
+   * 
+   * This method is used to update whether the drone is available for new delivery tasks.
+   * 
+   * @param val Boolean value indicating the availability status.
+   */
   void setAvailable(bool val);
 
  private:

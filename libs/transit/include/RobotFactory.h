@@ -15,7 +15,6 @@ class RobotFactory : public IEntityFactory {
    * @brief Destructor for RobotFactory class.
    **/
   virtual ~RobotFactory() {}
-
   /**
    * @brief Creates entity using the given JSON object, if possible.
    * @param entity - JsonObject to be used to create the new entity.

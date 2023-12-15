@@ -78,12 +78,28 @@ class SimulationModel : public IObserver{
   */
   const routing::IGraph* getGraph();
 
+  /**
+   * @brief Sends a notification to the controller about a change in context.
+   * @param context Pointer to the IEntity that is the context of the notification.
+   * @param moreContext Additional context provided as a string.
+   */
   void sendNotif(IEntity* context, std::string moreContext);
 
+  /**
+   * @brief Queue of packages scheduled for delivery.
+   */
   std::deque<Package*> scheduledDeliveries;
 
+  /**
+   * @brief Removes an entity from the simulation using its ID.
+   * @param id The unique identifier of the entity to be removed.
+   */
   void removeFromSim(int id);
 
+  /**
+   * @brief Retrieves a map of all entities in the simulation.
+   * @return A map where the key is the entity ID and the value is a pointer to the IEntity.
+   */
   std::map<int, IEntity*> getEntities();
 
  protected:
