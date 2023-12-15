@@ -1,0 +1,24 @@
+
+*** These modified files were found in JOE when it aborted on Wed Dec 13 21:01:30 2023
+*** JOE was aborted by UNIX signal 1
+
+*** File '/xtra/lee02819/csci3081w/final_project/team-001-16-hw4/.git/MERGE_MSG'
+qqMerge branch 'extension_2' of https://github.umn.edu/umn-csci-3081-f23/team-001-16-hw4 into extension_2
+# Please enter a commit message to explain why this merge is necessary,
+# especially if it merges an updated upstream into a topic branch.
+#
+# Lines starting with '#' will be ignored, and an empty message aborts
+# the commit.
+
+*** File '(Unnamed)'
+/xtra/lee02819/csci3081w/final_project/team-001-16-hw4/.git/COMMIT_EDITMSG
+* Build Log *
+/xtra/lee02819/csci3081w/final_project/team-001-16-hw4/.git/COMMIT_EDITMSG
+* Build Log *
+/xtra/lee02819/csci3081w/final_project/team-001-16-hw4/.git/MERGE_MSG
+
+*** File '* Startup Log *'
+Processing '/etc/joe/editorrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc
