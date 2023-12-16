@@ -24,6 +24,15 @@ Our project is an advanced drone simulation system designed to realistically mod
 - **Real-Time Notifications:** Uses the Observer Pattern to inform users of significant events like drone progress, human movements, and car actions, displayed in a notification bar.
 - **Interactive User Interface:** Provides a platform for users to observe and interact with the simulation. Users can schedule deliveries and observe specific entities in the model.
 
+### **UML Diagrams:**
+Below are the UML diagrams representing the architecture and design patterns used in our simulation.
+
+![UML Diagram 1](images/uml_extension1.png)
+*Figure 1: UML Diagram illustrating the implementation of our first extension.*
+
+![UML Diagram 2](images/uml_extension2.png)
+*Figure 2: UML Diagram showing the implementation of our second extension.*
+
 ### **New Features - State + Observer Pattern Implementation and Notification Bar:**
 
 #### **What do they do?**
