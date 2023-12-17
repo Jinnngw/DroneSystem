@@ -54,12 +54,4 @@ These new features enhance the simulation's realism and educational value, allow
 - **Notification Bar:** View the notification bar for live updates on entity activities. This feature operates automatically as part of the simulation.
 
 ### **YouTube Video Presentation:**
-<iframe
-    width="640"
-    height="480"
-    src="https://youtu.be/zuJI1txGxho"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
->
-</iframe>
+[https://youtu.be/zuJI1txGxho](https://youtu.be/zuJI1txGxho)
