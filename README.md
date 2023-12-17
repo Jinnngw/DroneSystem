@@ -22,7 +22,7 @@ Our project is an advanced drone simulation system designed to realistically mod
 - **Package Delivery System:** Drones simulate the process of picking up and delivering packages amidst various challenges.
 - **Package Stealing Ability:** Car pirates can intercept and steal packages, adding complexity to the drone deliveries.
 - **Real-Time Notifications:** Uses the Observer Pattern to inform users of significant events like drone progress, human movements, and car actions, displayed in a notification bar.
-- **Interactive User Interface:** Provides a platform for users to observe and interact with the simulation. Users can schedule deliveries and observe specific entities in the model.
+- **Interactive User Interface:** Provides a platform for users to observe and interact with the simulation. Users can schedule deliveries and observe specific entities in the model. Users can also add humans and cars with buttons located below the "Schedule Delivery" button.
 
 ### **UML Diagrams:**
 Below are the UML diagrams representing the architecture and design patterns used in our simulation.
@@ -55,3 +55,6 @@ These new features enhance the simulation's realism and educational value, allow
 
 ### **YouTube Video Presentation:**
 [https://youtu.be/zuJI1txGxho](https://youtu.be/zuJI1txGxho)
+
+### **DockerHub Link:**
+[https://hub.docker.com/r/lingyix/team-001-16-hw4](https://hub.docker.com/r/lingyix/team-001-16-hw4)
