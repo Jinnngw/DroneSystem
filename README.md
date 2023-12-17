@@ -27,10 +27,10 @@ Our project is an advanced drone simulation system designed to realistically mod
 ### **UML Diagrams:**
 Below are the UML diagrams representing the architecture and design patterns used in our simulation.
 
-![UML Diagram 1](images/uml_extension1.png)
+![UML Diagram 1](images/uml_ext1.png)
 *Figure 1: UML Diagram illustrating the implementation of our first extension.*
 
-![UML Diagram 2](images/uml_extension2.png)
+![UML Diagram 2](images/uml_ext2.png)
 *Figure 2: UML Diagram showing the implementation of our second extension.*
 
 ### **New Features - State + Observer Pattern Implementation and Notification Bar:**
