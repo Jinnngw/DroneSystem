@@ -58,5 +58,5 @@ These new features enhance the simulation's realism and educational value, allow
 
 ### **DockerHub Link:**
 [https://hub.docker.com/r/lingyix/team-001-16-hw4](https://hub.docker.com/r/lingyix/team-001-16-hw4)
-- To run the Docker image, please use the terminal command docker run --rm -it -p 8081:8081 lingyix/team-001-16-hw4:latest
+- To run the Docker image, please use the terminal command `docker run --rm -it -p 8081:8081 lingyix/team-001-16-hw4:latest`
 - Using the terminal will allow port forwarding to 8081 to run the simulation
